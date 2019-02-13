@@ -38,8 +38,7 @@ module.exports.courseCreate = function(req,res){
         name: req.body.name,
         type: req.body.type,
         rating: parseInt(req.body.rating),
-        favourite_subjects: req.body.favourite_subjects.split(","),
-        courses: req.body.courses
+        coursesItems: req.body.courses,
     },function(err, course){
         if(err){
             res.status(400);
@@ -48,9 +47,7 @@ module.exports.courseCreate = function(req,res){
             res.status(201);
             res.json(course);
         }
-    })
-    res.status(200);
-    res.json({'status': "success"});
+    });
 };
 module.exports.courseUpdate = function(req,res){
     res.status(200);

@@ -14,10 +14,10 @@ router.put('/courses/:courseid', controlCourse.courseUpdate);
 router.delete('/course/:courseid', controlCourse.courseDelete); 
 
 /* Course item */
-router.post('/courses/:courseid/courseItem',controlCourseItem.courseCreateOne);
-router.get('/courses/:courseid/courseItem', controlCourseItem.getCourseItemList);
-router.get('/courses/:courseid/courseItem/:courseitemid',controlCourseItem.courseItemReadOne);
-router.delete('/courses/:courseid/courseItem/:courseitemid',controlCourseItem.courseItemDeleteOne);
+router.post('/courses/:courseid/courseitem',controlCourseItem.courseCreateOne);
+router.get('/courses/:courseid/courseitem', controlCourseItem.getCourseItemList);
+router.get('/courses/:courseid/courseitem/:courseitemid',controlCourseItem.courseItemReadOne);
+router.delete('/courses/:courseid/courseitem/:courseitemid',controlCourseItem.courseItemDeleteOne);
 
 
 /* User pages  TODO*/

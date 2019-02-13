@@ -17,6 +17,7 @@
     "mongoose": "^5.4.11",
     "morgan": "~1.0.0",
     "popper.js": "^1.14.7",
+    "request": "^2.88.0",
     "static-favicon": "~1.0.0"
   }
 }

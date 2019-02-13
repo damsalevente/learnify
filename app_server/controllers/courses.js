@@ -1,20 +1,24 @@
+var request = require('request');
+var apiOptions = {
+    server: 'http://localhost:3000'
+};
+
 
 /* GET home page */
 module.exports.homelist = function(req,res){
-    res.render('pages/courselist', { title: 'Course list',
-    courseList: [
-        {
-            name: "Matek A1",
-            difficulty: "Hard",
-            numUsers: 123
-        },
-        {
-            name: "Terek",
-            difficulty: "Easy",
-            numUsers: 666
-        } 
-        ]
-});
+    var requestOptions, path;
+    path = '/api/courses';
+    requestOptions = {
+        url: apiOptions.server + path,
+        method: 'GET',
+        json:{},
+    };
+    request(requestOptions, function(err,response,body){
+        res.render('pages/courselist',{
+            title: 'Course list',
+            courseList: body,
+        });
+    });
 
 };
 

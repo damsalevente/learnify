@@ -108,3 +108,8 @@ mongoose leegyszerűsíti a kapcsolatot a webszerver és adatbázis között
 Test course id 
 
 5c61d8e044d8832a1f91bb18
+
+Create and Get done one most course, courseItem elements, i know how to handle subdocuments.
+
+Todo: write every request method 
+
