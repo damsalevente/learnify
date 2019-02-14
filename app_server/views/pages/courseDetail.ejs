@@ -3,64 +3,48 @@
   <head>
    
     <% include ../partials/head %>
+    <title><%= title %></title>
   </head>
   <header>
     <% include ../partials/header %>
   </header>
-  <body class="grey darken-4 green-text text-lighten-1">
+  <body class="flow-text  grey darken-3 green-text text-lighten-1">
        
             
        
      
-          <div class="row">
-            <div class="col s3 m3">
-              <h4 class=flow-text>Sidenavbar</h4>
-             <div class="collection">
-          
-              <a href="#!" class="collection-item grey darken-4 green-text text-lighten-1">Alvin</a>
-              <a href="#!" class="collection-item grey darken-4 green-text text-lighten-1">Alvin</a>
-              <a href="#!" class="collection-item grey darken-4 green-text text-lighten-1">Alvin</a>
-                <a href="#!" class="collection-item grey darken-4 green-text text-lighten-1">Alvin</a>
+          <div class="row">                    
+            <div class="col s12 m9 flow-text">
+                <h4 class=flow-text>Course detail</h4>
+                <div class="card-panel grey darken-4 z-depth-3">
+                  <h4> Course name</h4>
+                  <p><%= course.name %></p>
+
+                </div>
+                <div class="card-panel grey darken-4 z-depth-3">
+                    <h4> Course type</h4>
+
+                    <p><%= course.type %></p>
               </div>
-                    
-            </div>
-            <div class="col s6 m6">
-                <h4 class=flow-text>                List of courses
-                  </h4>
-                      <ul class="collection">
-                        <% course.forEach(course =>{ %>
-                          <li class="collection-item avatar grey darken-4 green-text text-lighten-1">
-                            <% if (course.finished){ %>
-                                <i class="material-icons circle grey darken-4 green-text text-lighten-1">check</i>
+              <div class="card-panel grey darken-4 z-depth-3">
+                  <h4> Course rating</h4>
 
-                                <% } else{ %>
-                           
-                                <i class="material-icons circle grey darken-4 green-text text-lighten-1">clear</i>
-
-                            <% } %>
-                            <span class="title grey darken-4 green-text text-lighten-1"> <%= course.name  %></span>
-                            <p> <%= course.time %><br>
-                               
-                            </p>
-                            <a href="#!" class="secondary-content "><i class="material-icons">grade</i></a>
-                          </li>
-                         <% }); %>
-                        </ul>
+                  <p><%= course.rating %></p>
+              </div>
+           
             </div>                                                  
-                    <div class="col s3 m3">
+                    <div class="col s12 m3">
                         <h4 class=flow-text>               Chatbox
                           </h4>
-                      
-                    </div>
-                
-                 
-                
-             
-              
-           
-               
-                   
+                          <div class="card-panel grey darken-4 z-depth-3">
 
+                 
+                          <% course.courseItems.forEach(function(element){ %>
+                            <p><%= element %></p>
+                          <% }) %>
+                        </div>
+
+                    </div>
            </div>
           </div>
          

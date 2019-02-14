@@ -7,7 +7,10 @@ var controlCourseItem = require('../controllers/courseItem');
 
 /* Course pages */
 router.get('/', controlCourse.homelist);
-router.get('/course',controlCourse.courseInfo);
+router.get('/course/:courseid',controlCourse.courseInfo);
+router.get('/new',controlCourse.courseNew);
+router.post('/new',controlCourse.courseDoNew);
+
 
 /* Course item */
 router.get('/course/item', controlCourseItem.item);

@@ -113,3 +113,7 @@ Create and Get done one most course, courseItem elements, i know how to handle s
 
 Todo: write every request method 
 
+
+
+Megnézi a bme-n a tárgykövetelményt, aszerint szétvágja a segédanyagokat és segít a felkészülésben. 
+
