@@ -83,25 +83,6 @@ module.exports.courseDoNew = function(req,res){
 }
 
 module.exports.courseNew = function(req,res){
-    var requestOptions,path;
-    path = "api/courses";
-    requestOptions = {
-        url: apiOptions.server + path,
-        method: "GET",
-        json: {}
-    };
-    request(
-        requestOptions,
-        function(err,response, body) {
-            var data = body;
-            if (response.status === 200){
-                res.render('pages/courseform',data);    
-                
-            } else {
-                res.status(300);
-                res.json({"Error":"Problem"});
-            }
-        }
-    );
-
+   
+    res.render('pages/courseform',{title: "Add new course"});
 }

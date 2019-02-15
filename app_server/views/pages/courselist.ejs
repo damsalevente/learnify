@@ -11,22 +11,43 @@
        
             
        
-     
+      
           <div class="row">
             <div class="col s3 m3">
               <h4 class=flow-text>Sidenavbar</h4>
-             <div class="collection">
-          
-              <a href="#!" class="collection-item grey darken-4 green-text text-lighten-1">Alvin</a>
-              <a href="#!" class="collection-item grey darken-4 green-text text-lighten-1">Alvin</a>
-              <a href="#!" class="collection-item grey darken-4 green-text text-lighten-1">Alvin</a>
-                <a href="#!" class="collection-item grey darken-4 green-text text-lighten-1">Alvin</a>
-              </div>
+             <ul class="collapsible">
+                <li>
+                    <div class="collapsible-header grey darken-4 green-text"><i class="material-icons">business_center</i>Courses</div>
+                      <div class="collapsible-body grey darken-4 green-text">
+                        
+                         
+                              
+                              <a class="collection-item grey darken-4 green-text text-lighten-1 waves-effect waves-teal btn-flat" href="/new"><i class="material-icons left">filter_drama</i>
+                               Add new
+                               
+                              </a>
+                              <a class="collection-item grey darken-4 green-text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
+                              View my courses
+                            </a>
+                            <a class="collection-item grey darken-4 green-text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
+                              Buddy write more than that 
+                            </a>
+                        
+                        </li>
+                        </ul>
                     
             </div>
             <div class="col s6 m6">
-                <h4 class=flow-text>                List of courses
-                  </h4>
+                
+                  <div class="row">
+                  <form class="col s12">
+                      <div class="input-field ">
+                        <input class="grey darken-4 green-text text-lighten-1" id="search" type="search" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                      </div>
+                    </form>
+                  </div>
                       <ul class="collection">
                         <% courseList.forEach(course =>{ %>
                           <li class="collection-item avatar grey darken-4 green-text text-lighten-1">
@@ -43,6 +64,8 @@
                     <div class="col s3 m3">
                         <h4 class=flow-text>               Chatbox
                           </h4>
+                          <img class="responsive-img materialboxed" src="/images/1538884585245.jpg">
+
                       
                     </div>
                 
@@ -56,7 +79,17 @@
 
            </div>
           </div>
-         
+       
     <% include ../partials/foot %>
+    <script>
+    $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+
+  $(document).ready(function(){
+    $('.materialboxed').materialbox();
+  });
+ </script>
+
   </body>
 </html>
