@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 
-var dbURI = 'mongodb://localhost/learnify';
+var dbURI = 'mongodb://localhost/companio';
 mongoose.connect(dbURI);
 
 
@@ -59,6 +59,7 @@ process.on('SIGTERM', function () {
     });
 });
 
-require('./course');
-require('./courseInfo');
-require('./student');
+require('./depot');
+require('./order');
+require('./partner');
+require('./product');

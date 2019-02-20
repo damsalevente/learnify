@@ -48,12 +48,11 @@
                     </form>
                   </div>
                       <ul class="collection">
-                        <% courseList.forEach(course =>{ %>
+                        <% productlist.forEach(product =>{ %>
                           <li class="collection-item avatar grey darken-4 green-text text-lighten-1">
                             <img src="images/yuna.jpg" alt="" class="circle">
-                            <a href="/course/<%= course._id %>" class="title grey darken-4 green-text text-lighten-1"> <%= course.name  %></a>
-                            <p> <%= course.type %><br>
-                               <%= course.courseItems %>
+                            <a href="/products/<%= product._id %>" class="title grey darken-4 green-text text-lighten-1"> <%= product.name  %></a>
+                            <p> <%= product.product_id %><br>
                             </p>
                             <a href="#!" class="secondary-content "><i class="material-icons">grade</i></a>
                           </li>

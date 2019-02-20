@@ -14,35 +14,50 @@
 # Feladat pontos meghatározása
 
 ## Entitások
-    Három entitás lesz, kurzuselem, kurzus, person
+    - Megrendelés
+        - partner
+        - Termék lista
+        - dátum
+        - végösszeg
+        - status (dummy eseménykezelés)
 
-    A person lehet hallgató vagy oktató
+    - Raktár
+        - Név
+        - Cím
+        - Raktárfelelős
+        - Raktár elem lista
+        - utolsó leltár dátuma
 
-    A kurzuselem lehet dolgozat, anyag(videófájl, pdf stb)
+    - RaktárElem
+        - Raktár
+        - Termék
+        - Mennyiség jelző
+        - Mennyiség
 
-    A kurzus kurzuselemekből áll, teljesítését egy progressbar mutatja
+    - Partner
+        - Partner neve
+        - Cím
+        - Kapcsolattartó email
+        - kapcsolattartó telefon
 
-## Funkciók tanároknak
+    - Termék
+        - Termék neve
+        - Cikkszám
+        - Ár
 
-    Feltölthetnek anyagokat, videókat, pdf-eket, amiket teljesíteniük kell a hallgatóknak
+Vagy így szétbontva
+vagy egybepakolva
+végülis nem bánt senkit, csak renderelésnél jobban oda kell figyelni, hogy mit küldünk milyen oldalra
+### Megrendelés:
+    - Ezt küldik el emailben
+    - Elemek
+    | Név | Megjegyzés|
+    |---|---|
+    
 
-    Küldhetnek csoportos üzenetet, válaszolhatnak kérdéskre
+## Funkciók
 
-    Kapnak statisztikát a kurzust végző hallgatókról, ki hogy teljesített, ki mennyire szerette
 
-## Funkciók diákoknak
-
-    Felvehetnek kurzusokat, teljesíthetik őket
-
-    A felvett kurzusok között böngészhetnek,
-
-    Kapnak visszajelzést, hogy hol tartanak benne
-
-    Társaikkal chatelhetnek, illetve egy publikus fórumra is írhatnak, hogy a tanár is lássa
-
-    Megnézhetik, hogy más hallgatók mivel foglalkoznak
-
-    Hallgatók házi feladataikat/projectjeiket/segédanyagaikat megoszthatják, amit az ő oldalukon, illetve a tanárnak is elküldhtenk, hogy ő feltölthesse
 
 ## Oldalak 
 
@@ -116,4 +131,11 @@ Todo: write every request method
 
 
 Megnézi a bme-n a tárgykövetelményt, aszerint szétvágja a segédanyagokat és segít a felkészülésben. 
+## API
 
+- [x] Schemas
+- [ ] Controllers
+- [ ] Routes
+
+## Consuming api
+## Angular
