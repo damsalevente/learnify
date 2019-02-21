@@ -1,4 +1,5 @@
 var express = require('express');
+var path = require('path');
 var router = express.Router();
 var controlmain = require('../controllers/main');
 var controlCourse = require('../controllers/courses');
@@ -20,6 +21,9 @@ router.get('/users',controlUser.userList);
 router.get('/user', controlUser.userDetail);
 
 // Product pages 
-router.get('/products',control_product.homelist)
+router.get('/products',control_product.homelist);
+router.get('/products/:productid',control_product.product_detail);
+router.get('/product/new',control_product.add_product);
+router.post('/product/new',control_product.do_add_product);
 
 module.exports = router;
