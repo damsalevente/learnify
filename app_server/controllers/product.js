@@ -86,7 +86,8 @@ module.exports.product_detail = function (req, res) {
 
                 res.render('pages/product', {
                     'title': 'Product detail',
-                    product: body
+                    product: body,
+                    editpage: req.params.productid
                 });
             }
         });
@@ -124,7 +125,7 @@ module.exports.do_add_product = function (req, res) {
             };
             request(requestOptions, function (err, response, body) {
                 if (response.statusCode === 201) {
-                    res.redirect('/partners');
+                    res.redirect('/products/');
                 } else {
                     res.render('error');
                 }
@@ -142,3 +143,112 @@ module.exports.add_product = function (req, res) {
         "title": "New product"
     });
 }
+
+module.exports.edit_product = function (req, res) {
+    var requestOptions, fpath, postData;
+    if (req.params.productid) {
+        fpath = '/api/products/' + req.params.productid;
+        requestOptions = {
+            url: apiOptions.server + fpath,
+            method: 'GET',
+            json: {}
+        };
+        request(requestOptions, function (err, response, body) {
+            console.log("Did we say somehing?");
+            if (err) {
+                res.render('error', err);
+            } else if (response.statusCode === 200) {
+                res.render('pages/product_edit', {
+                    "title": "Edit product",
+                    "product": body,
+                });
+            } else {
+                res.render('error', {
+                    "message": "this is america",
+                    "error": "error"
+                });
+            }
+        });
+    } else {
+        res.render('error', {
+            "message": "we are here found",
+            "error": "error"
+        });
+    }
+
+};
+
+module.exports.do_edit_product = function (req, res) {
+    var requestOptions, fpath, postData;
+    if (req.params.productid) {
+
+        fpath = '/api/products/' + req.params.productid;
+
+        upload(req, res, (err) => {
+            if (err) {
+                console.log("Problem");
+                res.render('error', {
+                    'title': 'Error during uploading',
+                });
+            } else {
+                postData = {
+                    name: req.body.name,
+                    product_id: req.body.product_id,
+                    price: req.body.price,
+                    description: req.body.description,
+                    imagefilenames: req.body.imagefilenames,
+                };
+                console.log(typeof postData);
+                requestOptions = {
+                    url: apiOptions.server + fpath,
+                    method: "PUT",
+                    json: postData
+                };
+                request(requestOptions, function (err, response, body) {
+                    if (response.statusCode === 200) {
+                        res.redirect('/products/'+req.params.productid);
+                    } else {
+                        res.render('error');
+                    }
+                })
+
+
+            }
+        });
+    } else {
+        res.redirect('error', {title:'Item not found to update',
+    "message": 'lmao'})
+    }
+
+};
+
+module.exports.delete_product = function (req, res) {
+    var requestOptions, fpath, postData;
+    if (req.params.productid) {
+        fpath = '/api/products/' + req.params.productid;
+        requestOptions = {
+            url: apiOptions.server + fpath,
+            method: 'DELETE',
+            json: {}
+        };
+        request(requestOptions, function (err, response, body) {
+            console.log("Did we say somehing?");
+            if (err) {
+                res.render('error', err);
+            } else if (response.statusCode === 204) {
+                res.redirect('/products');
+            } else {
+                res.render('error', {
+                    "message": "this is america",
+                    "error": "error"
+                });
+            }
+        });
+    } else {
+        res.render('error', {
+            "message": "we are here found",
+            "error": "error"
+        });
+    }
+
+};

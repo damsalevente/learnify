@@ -11,23 +11,23 @@
 <body>
     <div class="row" style="font-family: 'IBM Plex Sans', sans-serif">
 
-        <div class="col s9 m9">
+        
 
 
 
             <div class="row">
                 <div class="col s12 m8">
-                    <div class="card z-depth-2">
+                    <div class="card horizontal z-depth-2">
                         <div class="card-image">
-                            <img src="/images/<%= product.imagefilenames %>">
-                          
-                            <a class="btn-floating halfway-fab waves-effect"><i class="material-icons">edit</i></a>
-                            
+                            <img class="responsive-img materialboxed" src="/images/<%= product.imagefilenames %>">
+                       
+                                  
+                        
                         </div>
 
                         <div class="card-content">
                                 <span class="card-title">
-                                        <%= product.name %></span>
+                                        <h4><%= product.name %></h4></span>
                             <div class="divider"></div>
                             <div class="section">
                                     <div class="row">
@@ -43,7 +43,7 @@
                                             <h5>
                                                     <%= product.product_id %>
                                             </h5>
-                                                
+
                                     </div>
                             </div>
                             </div>
@@ -76,16 +76,18 @@
                     <div class="col s12 m4">
                         <div class="card">
                             <div class="card-title">
-                                Edit
+                                    <div class="fixed-action-btn">
+                                            <a class="btn-floating btn-large red">
+                                                    <i class="large material-icons">mode_edit</i>
+                                                  </a>
+                                                  <ul>
+                                        <li><a href="http://localhost:3000/products/<%= editpage %>/edit" class="btn-floating waves-effect"><i class="material-icons">edit</i></a>
+                                        </li>
+                                        <li><a href="http://localhost:3000/products/<%= editpage %>/delete" class="btn-floating waves-effect"><i class="material-icons">delete</i></a>
+                                        </li>
+                                    </ul>
+                                    </div>
                             </div>
-
-                            <form action="#">
-                                <p class="flow-text">
-
-                                    <input name="amount" type="number" id="icon_prefix" value=<%=product.amount %>/>
-                                    <label for="amount">Amount</label>
-                                </p>
-                            </form>
 
                         </div>
                         <div class="card ">
@@ -103,14 +105,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col s3 m3">
-                <h4 class=flow-text> Chatbox
-                </h4>
-                <img class="responsive-img materialboxed" src="/images/1538884585245.jpg">
-
-
-            </div>
-
 
 
 
@@ -120,8 +114,6 @@
 
 
         </div>
-    </div>
-
     <% include ../partials/foot %>
     <script>
         $(document).ready(function () {
@@ -131,6 +123,12 @@
         $(document).ready(function () {
             $('.materialboxed').materialbox();
         });
+        document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems, {
+      direction: 'up'
+    });
+  });
     </script>
 
 </body>

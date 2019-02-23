@@ -13,7 +13,7 @@ module.exports.prod_list = function (req, res) {
       } else {
         utillib.sendJsonResponse(res, 200, products);
       }
-    })
+    });
 };
 
 module.exports.product_detail = function (req, res) {
@@ -93,12 +93,15 @@ module.exports.product_update_get = function (req, res) {
     Product
       .findByIdAndUpdate(productid)
       .exec(function (err, product) {
-        if (err) {
+        if(!product){
+          utillib.sendJsonResponse(res,404,{"message":"Product not found "});
+          return;
+        }
+        else if (err) {
           utillib.sendJsonResponse(res, 300, err);
         } else {
           product.name = req.body.name;
           product.product_id = req.body.product_id;
-          product.price = req.body.price;
           product.price = req.body.price;
           product.imagefilenames = req.body.imagefilenames;
           product.amount = req.body.amount;
