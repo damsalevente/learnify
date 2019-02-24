@@ -1,93 +1,132 @@
 <!DOCTYPE html>
 <html>
-  <head>
-   
-    <% include ../partials/head %>
-  </head>
-  <header>
-    <% include ../partials/header %>
-  </header>
-  <body class="grey darken-4 green-text text-lighten-1">
-       
-            
-       
-      
-          <div class="row">
-            <div class="col s3 m3">
-              <h4 class=flow-text>Sidenavbar</h4>
-             <ul class="collapsible">
-                <li>
-                    <div class="collapsible-header grey darken-4 green-text"><i class="material-icons">business_center</i>Courses</div>
-                      <div class="collapsible-body grey darken-4 green-text">
-                        
-                         
-                              
-                              <a class="collection-item grey darken-4 green-text text-lighten-1 waves-effect waves-teal btn-flat" href="/new"><i class="material-icons left">filter_drama</i>
-                               Add new
-                               
-                              </a>
-                              <a class="collection-item grey darken-4 green-text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
-                              View my courses
-                            </a>
-                            <a class="collection-item grey darken-4 green-text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
-                              Buddy write more than that 
-                            </a>
-                        
-                        </li>
-                        </ul>
-                    
-            </div>
-            <div class="col s6 m6">
-                
-                  <div class="row">
-                  <form class="col s12">
-                      <div class="input-field ">
-                        <input class="grey darken-4 green-text text-lighten-1" id="search" type="search" required>
-                        <i class="material-icons">close</i>
-                      </div>
-                    </form>
-                  </div>
-                      <ul class="collection">
-                        <% productlist.forEach(product =>{ %>
-                          <li class="collection-item avatar grey darken-4 green-text text-lighten-1">
-                            <img src="images/yuna.jpg" alt="" class="circle">
-                            <a href="/products/<%= product._id %>" class="title grey darken-4 green-text text-lighten-1"> <%= product.name  %></a>
-                            <p> <%= product.product_id %><br>
-                            </p>
-                            <a href="#!" class="secondary-content "><i class="material-icons">grade</i></a>
-                          </li>
-                         <% }); %>
-                        </ul>
-            </div>                                                  
-                    <div class="col s3 m3">
-                        <h4 class=flow-text>               Chatbox
-                          </h4>
-                          <img class="responsive-img materialboxed" src="/images/1538884585245.jpg">
 
+<head>
+
+  <% include ../partials/head %>
+</head>
+<header>
+  <% include ../partials/header %>
+</header>
+
+<body class="float-text">
+
+
+
+
+  <div class="row">
+    <div class="col s12 m3">
+      <h5 class=flow-text>Sidenavbar</h5>
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header  -text"><i class="material-icons">business_center</i>Courses</div>
+          <div class="collapsible-body  -text">
+
+
+
+            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="/new"><i class="material-icons left">filter_drama</i>
+              Add new
+
+            </a>
+            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
+              View my courses
+            </a>
+            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
+              Buddy write more than that
+            </a>
+
+        </li>
+      </ul>
+
+    </div>
+    <div class="col s12 m6">
+
+      <div class="container">
+    
+    
+        <% productlist.forEach((product,index) =>{ %>
+          <% if(index%2) { %>
+            <div class="row">
+              <% } %>
+              <div class="col s12 m6">
+          <div class="card hoverable z-depth-1"> <a class="grey-text" href="/products/<%= product._id %>">
+            <img src="/images/<%= product.imagefilenames %>" alt="" class="card-image responsive-img">
+
+            <div class="card-content">
+                <span class="card-title">
+                        <h5><%= product.name %></h5></span>
                       
-                    </div>
-                
-                 
-                
-             
-              
-           
-               
-                   
+                      <span class="new badge <%= product.amount==0?'red':'blue' %>" data-badge-caption="Raktáron">
+                          <%= product.amount %></span>
+            <div class="divider"></div>
+            <div class="section">
+                    <div class="row">
+                    <div class="col s12">
+                <p>Product name</hp>
+                <h5>
+                    <%= product.name %>
+                </h5>
+            </div>
+                <div class="col s12">
+                        <p>Product id</p>
+                            <h5>
+                                    <%= product.product_id %>
+                            </h5>
 
-           </div>
+                    </div>
+            </div>
+            </div>
+            <% if (product.price){ %>
+            <div class="divider"></div>
+            <div class="section">
+
+                    <p><i class="material-icons">attach_money</i>Price</p>
+               <h5> <%= product.price %> Ft</h5>
+            </div>
+            <% } %>
+               
+                    
           </div>
-       
+        </a>
+          </div>
+          
+        </div>
+         <% if(index%2) { %>
+         </div>
+         <% } %>
+
+          <% }); %>
+        </div>
+        <div class="col s12 m3">
+          <h5 class=flow-text> Chatbox
+          </h5>
+          <img class="responsive-img materialboxed" src="/images/1538884585245.jpg">
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+
     <% include ../partials/foot %>
     <script>
-    $(document).ready(function(){
-    $('.collapsible').collapsible();
-  });
+      $(document).ready(function () {
+        $('.collapsible').collapsible();
+      });
 
-  $(document).ready(function(){
-    $('.materialboxed').materialbox();
-  });
- </script>
+      $(document).ready(function () {
+        $('.materialboxed').materialbox();
+      });
+    </script>
 
-  </body>
+</body>
+
 </html>

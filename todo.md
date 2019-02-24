@@ -144,3 +144,4 @@ Megnézi a bme-n a tárgykövetelményt, aszerint szétvágja a segédanyagokat 
 ## Consuming api
 ## Angular
 
+
