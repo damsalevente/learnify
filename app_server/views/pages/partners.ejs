@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <% include ../partials/head %>
+</head>
+<header>
+  <% include ../partials/header %>
+</header>
+
+<body class="float-text">
+
+
+
+
+  <div class="row">
+    <div class="col s12 m3">
+      <h5 class=flow-text>Sidenavbar</h5>
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header  -text"><i class="material-icons">business_center</i>Courses</div>
+          <div class="collapsible-body  -text">
+
+
+
+            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="/new"><i class="material-icons left">filter_drama</i>
+              Add new
+
+            </a>
+            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
+              View my courses
+            </a>
+            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
+              Buddy write more than that
+            </a>
+
+        </li>
+      </ul>
+
+    </div>
+    <div class="col s12 m6">
+
+      <div class="container">
+          <div class="fixed-action-btn">
+
+    <a class="right btn-floating waves-effect waves-light red" href="/partner/new"><i class="material-icons">add
+      </i></a>
+          </div>
+        <h2 class="header">Partnerek</h2>
+
+
+       
+
+        <% partnerlist.forEach((partner,index) =>{ %>
+        <div class="card horizontal hoverable">
+
+          <div class="card-image">
+            <img src="/images/<%= partner.image_filename %>" alt="" class="responsive-img">
+          </div>
+          <div class="card-stacked">
+            <div class="card-title">
+              <%= partner.name %>
+            </div>
+            <div class="card-content">
+
+           
+                <%= partner.partner_name %>
+            
+                <div class="divider"></div>
+               
+                  <%= partner.partner_email %>
+                </p>
+
+               
+            </div>
+            <div class="card-action">
+              <a href="/partners/<%= partner._id %>">Details</a>
+
+            </div>
+          </div>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+    <div class="col s12 m3">
+      <h5 class=flow-text> Chatbox
+      </h5>
+      <img class="responsive-img materialboxed" src="/images/1538884585245.jpg">
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+  </div>
+  </div>
+
+  <% include ../partials/foot %>
+  <script>
+    $(document).ready(function () {
+      $('.collapsible').collapsible();
+    });
+
+    $(document).ready(function () {
+      $('.materialboxed').materialbox();
+    });
+  </script>
+
+</body>
+
+</html>

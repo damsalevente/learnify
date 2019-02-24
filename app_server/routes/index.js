@@ -2,17 +2,12 @@ var express = require('express');
 var path = require('path');
 var router = express.Router();
 var controlmain = require('../controllers/main');
-var controlCourse = require('../controllers/courses');
+var control_partner = require('../controllers/partner');
 var controlUser = require('../controllers/users');
 var controlCourseItem = require('../controllers/courseItem');
 var control_product = require('../controllers/product');
 
 /* Course pages */
-router.get('/', controlCourse.homelist);
-router.get('/course/:courseid',controlCourse.courseInfo);
-router.get('/new',controlCourse.courseNew);
-router.post('/new',controlCourse.courseDoNew);
-
 
 /* Course item */
 router.get('/course/item', controlCourseItem.item);
@@ -29,6 +24,17 @@ router.post('/product/new',control_product.do_add_product);
 router.get('/products/:productid/edit', control_product.edit_product);
 router.post('/products/:productid/edit',control_product.do_edit_product);
 router.get('/products/:productid/delete', control_product.delete_product);
+
+/* Partner pages */
+
+router.get('/partners',control_partner.homelist);
+router.get('/partners/:partnerid',control_partner.product_detail);
+router.get('/partner/new',control_partner.add_product);
+router.post('/partner/new',control_partner.do_add_product);
+router.get('/partners/:partnerid/edit', control_partner.edit_product);
+router.post('/partners/:partnerid/edit',control_partner.do_edit_product);
+router.get('/partners/:partnerid/delete', control_partner.delete_product);
+
 
 
 module.exports = router;

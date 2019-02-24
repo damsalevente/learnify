@@ -1,6 +1,7 @@
 var request = require('request');
 var multer = require('multer');
 var path = require('path');
+
 // file storage
 var storage = multer.diskStorage({
     destination: './public/images/',
@@ -20,6 +21,17 @@ var upload = multer({
     }
 
 }).single('imagefilenames');
+
+var upload2 = multer({
+    storage: storage,
+    limits: {
+        filesize: 1000000
+    },
+    fileFilter: function (req, file, cb) {
+        check_file_type(file, cb);
+    }
+
+}).single('image_filename');
 
 // Check file type
 function check_file_type(file, cb) {
@@ -44,7 +56,7 @@ var apiOptions = {
 /* GET home page */
 module.exports.homelist = function (req, res) {
     var requestOptions, fpath;
-    fpath = '/api/products';
+    fpath = '/api/partners';
     requestOptions = {
         url: apiOptions.server + fpath, // you know why it's required
         method: 'GET', // default is get, 
@@ -56,9 +68,9 @@ module.exports.homelist = function (req, res) {
             res.status(300);
             res.json(err);
         } else if (response.statusCode == 200) {
-            res.render('pages/products', {
+            res.render('pages/partners', {
                 title: 'Product list',
-                productlist: body,
+                partnerlist: body,
             });
         } else {
             res.status(response.statusCode);
@@ -70,8 +82,8 @@ module.exports.homelist = function (req, res) {
 
 module.exports.product_detail = function (req, res) {
     var requestOptions, fpath;
-    if (req.params.productid) {
-        fpath = '/api/products/' + req.params.productid;
+    if (req.params.partnerid) {
+        fpath = '/api/partners/' + req.params.partnerid;
         requestOptions = {
             url: apiOptions.server + fpath,
             method: "GET",
@@ -84,13 +96,16 @@ module.exports.product_detail = function (req, res) {
                 res.json(err);
             } else if (response.statusCode == 200) {
 
-                res.render('pages/product', {
+                res.render('pages/partner', {
                     'title': 'Product detail',
-                    product: body,
-                    editpage: req.params.productid
+                    partner: body,
+                    editpage: req.params.partnerid
                 });
-            } else if(response.statusCode === 404){
-                res.render("error", {message: body.message, error:404});
+            } else if (response.statusCode === 404) {
+                res.render("error", {
+                    message: body.message,
+                    error: 404
+                });
             }
         });
     } else {
@@ -103,9 +118,9 @@ module.exports.product_detail = function (req, res) {
 
 module.exports.do_add_product = function (req, res) {
     var requestOptions, fpath, postData;
-    fpath = '/api/products/';
+    fpath = '/api/partners/';
 
-    upload(req, res, (err) => {
+    upload2(req, res, (err) => {
         if (err) {
             console.log("Problem");
             res.render('index', {
@@ -114,10 +129,12 @@ module.exports.do_add_product = function (req, res) {
         } else {
             postData = {
                 name: req.body.name,
-                product_id: req.body.product_id,
-                price: req.body.price,
+                address: req.body.address,
+                partner_name: req.body.partner_name,
+                partner_email: req.body.partner_email,
+                partner_phone: req.body.partner_phone,
                 description: req.body.description,
-                imagefilenames: req.body.imagefilenames,
+                image_filename: req.body.image_filename,
             };
             console.log(typeof postData);
             requestOptions = {
@@ -127,7 +144,7 @@ module.exports.do_add_product = function (req, res) {
             };
             request(requestOptions, function (err, response, body) {
                 if (response.statusCode === 201) {
-                    res.redirect('/products/');
+                    res.redirect('/partners/');
                 } else {
                     res.render('error');
                 }
@@ -141,15 +158,15 @@ module.exports.do_add_product = function (req, res) {
 
 module.exports.add_product = function (req, res) {
     // simple get request, we need to render a beautiful form
-    res.render('pages/product_form', {
+    res.render('pages/partner_form', {
         "title": "New product"
     });
 }
 
 module.exports.edit_product = function (req, res) {
     var requestOptions, fpath, postData;
-    if (req.params.productid) {
-        fpath = '/api/products/' + req.params.productid;
+    if (req.params.partnerid) {
+        fpath = '/api/partners/' + req.params.partnerid;
         requestOptions = {
             url: apiOptions.server + fpath,
             method: 'GET',
@@ -160,9 +177,9 @@ module.exports.edit_product = function (req, res) {
             if (err) {
                 res.render('error', err);
             } else if (response.statusCode === 200) {
-                res.render('pages/product_edit', {
-                    "title": "Edit product",
-                    "product": body,
+                res.render('pages/partner_edit', {
+                    "title": "Edit partner",
+                    "partner": body,
                 });
             } else {
                 res.render('error', {
@@ -182,23 +199,26 @@ module.exports.edit_product = function (req, res) {
 
 module.exports.do_edit_product = function (req, res) {
     var requestOptions, fpath, postData;
-    if (req.params.productid) {
+    if (req.params.partnerid) {
 
-        fpath = '/api/products/' + req.params.productid;
+        fpath = '/api/partners/' + req.params.partnerid;
 
-        upload(req, res, (err) => {
+        upload2(req, res, (err) => {
             if (err) {
                 console.log("Problem");
                 res.render('error', {
                     'title': 'Error during uploading',
                 });
             } else {
+                // validation ? 
                 postData = {
                     name: req.body.name,
-                    product_id: req.body.product_id,
-                    price: req.body.price,
+                    address: req.body.address,
+                    partner_name: req.body.partner_name,
+                    partner_email: req.body.partner_email,
+                    partner_phone: req.body.partner_phone,
                     description: req.body.description,
-                    imagefilenames: req.body.imagefilenames,
+                    image_filename: req.body.image_filename,
                 };
                 console.log(typeof postData);
                 requestOptions = {
@@ -208,7 +228,7 @@ module.exports.do_edit_product = function (req, res) {
                 };
                 request(requestOptions, function (err, response, body) {
                     if (response.statusCode === 200) {
-                        res.redirect('/products/'+req.params.productid);
+                        res.redirect('/partners/' + req.params.partnerid);
                     } else {
                         res.render('error');
                     }
@@ -218,16 +238,18 @@ module.exports.do_edit_product = function (req, res) {
             }
         });
     } else {
-        res.redirect('error', {title:'Item not found to update',
-    "message": 'lmao'})
+        res.redirect('error', {
+            title: 'Item not found to update',
+            "message": 'lmao'
+        })
     }
 
 };
 
 module.exports.delete_product = function (req, res) {
     var requestOptions, fpath, postData;
-    if (req.params.productid) {
-        fpath = '/api/products/' + req.params.productid;
+    if (req.params.partnerid) {
+        fpath = '/api/partners/' + req.params.partnerid;
         requestOptions = {
             url: apiOptions.server + fpath,
             method: 'DELETE',
@@ -238,7 +260,7 @@ module.exports.delete_product = function (req, res) {
             if (err) {
                 res.render('error', err);
             } else if (response.statusCode === 204) {
-                res.redirect('/products');
+                res.redirect('/partners');
             } else {
                 res.render('error', {
                     "message": "this is america",

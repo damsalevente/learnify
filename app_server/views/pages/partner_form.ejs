@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   
+    <% include ../partials/head %>
+    <title><%= title %></title>
+  </head>
+  <header>
+    <% include ../partials/header %>
+  </header>
+  <body class="flow-text">
+   <div class="container">
+      <form action="", method="POST", enctype="multipart/form-data">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input  type="text" name="name">
+                    <label for="name">Company name</label>
+                  </div>
+                  <div class="input-field col s12">
+          
+                    <input type="text" name="address">
+                    <label for="name">address</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input   type="text" name="partner_name" id="partner_name">
+                    <label for="price">Partner name</label>
+                  </div>
+          
+                  <div class="input-field col s12">
+                    <input  type="text" name="partner_email" id="partner_email">
+                    <label for="partner_email">Partner Email</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <input  type="text" name="partner_phone" id="partner_phone">
+                    <label for="price">Partner phone</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <input  id="description" type="text" name="description" class="">
+                    <label for="description">Description</label>
+                  </div>
+                </div>
+          
+                <div class="file-field input-field">
+                  <div class="btn">
+                    <span>File</span>
+                    <input type="file" name='image_filename'>
+                  </div>
+                  <div class="file-path-wrapper">
+                    <input id="image_filename" class="file-path validate" type="text" placeholder="Upload image" name="image_filename">
+                  </div>
+                </div>
+          
+          <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+      </form>
+    </div>
+    </div>
+        <% include ../partials/foot %>
+    </body>
+  </html>
+  
