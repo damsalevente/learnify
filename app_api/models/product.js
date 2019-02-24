@@ -3,11 +3,21 @@ var mongoose = require('mongoose');
 
 
 var product = new mongoose.Schema({
-    name: { type: String, required: true },
-    product_id: {type: String, index: true,  unique: true },
+    name: {
+        type: String,
+        required: true
+    },
+    product_id: {
+        type: String,
+        index: true,
+        unique: true
+    },
     price: Number,
     imagefilenames: [String],
-    amount: { type: Number, "default": 0 },
+    amount: {
+        type: Number,
+        "default": 0
+    },
     description: String,
 
 });

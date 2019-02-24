@@ -6,12 +6,12 @@ mongoose.connect(dbURI);
 
 
 // add one more connnection
-var logDB = mongoose.createConnection(dbURI+'Logging');
+var logDB = mongoose.createConnection(dbURI + 'Logging');
 
 
 
-logDB.on('connected', function(){
-    console.log('Mongoose connected to ' + dbURI+'Logging');
+logDB.on('connected', function () {
+    console.log('Mongoose connected to ' + dbURI + 'Logging');
 })
 
 
@@ -32,13 +32,13 @@ mongoose.connection.on('disconnected', function () {
 var shutdownMongo = function (msg, callback) {
     mongoose.connection.close(function () {
         console.log('Mongoose disconnected through ' + msg);
-       
+
     });
-    logDB.close(function(){
+    logDB.close(function () {
         console.log('Mongoose log server disconnected on ' + msg);
         callback();
     })
-  
+
 };
 
 // Signal catching

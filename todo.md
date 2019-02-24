@@ -126,8 +126,12 @@ Test course id
 
 Create and Get done one most course, courseItem elements, i know how to handle subdocuments.
 
-Todo: write every request method 
-
+Todo: 
+    Routes: 
+        - /orders/:orderid/partner GET,POST,PUT,Delete
+        - /orders/:orderid/products PUSH,PULL (mongoose )
+        - /orders/:orderid/products/:productid -> same as /product/:productid
+ 
 
 
 Megnézi a bme-n a tárgykövetelményt, aszerint szétvágja a segédanyagokat és segít a felkészülésben. 
@@ -139,3 +143,4 @@ Megnézi a bme-n a tárgykövetelményt, aszerint szétvágja a segédanyagokat 
 
 ## Consuming api
 ## Angular
+
