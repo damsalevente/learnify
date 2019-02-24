@@ -139,3 +139,5 @@ Megnézi a bme-n a tárgykövetelményt, aszerint szétvágja a segédanyagokat 
 
 ## Consuming api
 ## Angular
+
+Forgot to push on computer so i can't finish the inner api, so instead i consume the product api and create the frontend for it 

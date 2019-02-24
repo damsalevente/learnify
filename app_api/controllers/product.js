@@ -13,7 +13,7 @@ module.exports.prod_list = function (req, res) {
       } else {
         utillib.sendJsonResponse(res, 200, products);
       }
-    })
+    });
 };
 
 module.exports.product_detail = function (req, res) {
@@ -66,6 +66,7 @@ module.exports.product_delete_get = function (req, res) {
     Product.findByIdAndRemove(productid).exec(function (err, product) {
       if (err) {
         utillib.sendJsonResponse(res, 404, err);
+        return;
 
       } else {
         utillib.sendJsonResponse(res, 204, product);
@@ -86,37 +87,45 @@ module.exports.product_delete_post = function (req, res) {
 };
 
 module.exports.product_update_get = function (req, res) {
-    var productid = req.params.productid;
-    if (productid) {
-      // get the product
-      Product
-        .findByIdAndUpdate(productid)
-        .exec(function (err, product) {
-            product.name = req.body.name;
-            product.product_id = req.body.product_id;
-            product.price = req.body.price;
-            product.price = req.body.price;
-            product.imagefilenames = req.body.imagefilenames;
-            product.amount = req.body.amount;
-            product.description = req.body.description;
+  var productid = req.params.productid;
+  if (productid) {
+    // get the product
+    Product
+      .findByIdAndUpdate(productid)
+      .exec(function (err, product) {
+        if(!product){
+          utillib.sendJsonResponse(res,404,{"message":"Product not found "});
+          return;
+        }
+        else if (err) {
+          utillib.sendJsonResponse(res, 300, err);
+        } else {
+          product.name = req.body.name;
+          product.product_id = req.body.product_id;
+          product.price = req.body.price;
+          product.imagefilenames = req.body.imagefilenames;
+          product.amount = req.body.amount;
+          product.description = req.body.description;
 
-            product.save(function (err, product) {
-                if (err) {
-                  utillib.sendJsonResponse(res, 404, err);
-                } else {
-                  utillib.sendJsonResponse(res,200,product);
-                }
-              })
-        });
-      }
-      else {
-        // not found item
-        utillib.sendJsonResponse(res,404,{"Message": "Product not found"});
-      }
-    };
-
-    module.exports.product_update_post = function (req, res) {
-      utillib.sendJsonResponse(res, 200, {
-        message: "get prod list"
+          product.save(function (err, product) {
+            if (err) {
+              utillib.sendJsonResponse(res, 404, err);
+            } else {
+              utillib.sendJsonResponse(res, 200, product);
+            }
+          })
+        }
       });
-    };
+  } else {
+    // not found item
+    utillib.sendJsonResponse(res, 404, {
+      "Message": "Product not found"
+    });
+  }
+};
+
+module.exports.product_update_post = function (req, res) {
+  utillib.sendJsonResponse(res, 200, {
+    message: "get prod list"
+  });
+};
