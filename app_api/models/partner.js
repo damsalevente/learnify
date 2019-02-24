@@ -2,7 +2,10 @@ var mongoose = require('mongoose');
 
 
 var partner = new mongoose.Schema({
-    name: { type: String, required: true },
+    name: {
+        type: String,
+        required: true
+    },
     address: String,
     partner_name: String,
     partner_email: String,

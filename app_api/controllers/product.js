@@ -69,7 +69,7 @@ module.exports.product_delete_get = function (req, res) {
         return;
 
       } else {
-        utillib.sendJsonResponse(res, 204, product);
+        utillib.sendJsonResponse(res, 204, {});
       }
     });
   } else {
