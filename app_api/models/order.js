@@ -4,7 +4,7 @@ var order = new mongoose.Schema({
     date: { type:Date, default: Date.now },
     partner: { type: mongoose.Schema.Types.ObjectId, ref:'Partner'},
     order_status: {type:String, required: true, enum: ['in_order', 'ready_order', 'out_order', 'affirmed_order', 'cancelled_order'], default:'in_order'},
-    product_list: [ {type: mongoose.Schema.Types.ObjectId, ref:'Product'}],
+    product_list: [{product:{type: mongoose.Schema.Types.ObjectId, ref:'Product'}, amount:Number}],
     });
 
 

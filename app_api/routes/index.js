@@ -37,6 +37,7 @@ router.get('/orders/:orderid',control_order.order_create_get);
 router.post('/orders', control_order.order_create_get);
 router.put('/orders/:orderid', control_order.order_update_get);
 router.delete('/orders/:orderid', control_order.order_delete_get); 
-
+router.post('/orders/:orderid',control_order.order_push_item);
+router.delete('/orders/:orderid/products/:productid',control_order.order_pull_item);
 
 module.exports = router;

@@ -13,7 +13,6 @@
 
 
 
-
   <div class="row">
     <div class="col s12 m3">
       <h5 class=flow-text>Sidenavbar</h5>
@@ -51,10 +50,14 @@
 
 
        
-
+        <div class="row">
         <% partnerlist.forEach((partner,index) =>{ %>
+          <% if (index%2 === 1){ %>
+         
+          <% } %>
+          <div class="col s12 m6">
         <div class="card horizontal hoverable">
-
+         
           <div class="card-image">
             <img src="/images/<%= partner.image_filename %>" alt="" class="responsive-img">
           </div>
@@ -79,8 +82,14 @@
 
             </div>
           </div>
+        
         </div>
+      </div>
+        <% if (index%2 === 0){ %>
+       
+        <% } %>
         <% }); %>
+      </div>
       </div>
     </div>
     <div class="col s12 m3">
@@ -112,7 +121,6 @@
       $('.materialboxed').materialbox();
     });
   </script>
-
 </body>
 
 </html>

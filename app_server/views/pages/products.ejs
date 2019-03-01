@@ -9,8 +9,7 @@
   <% include ../partials/header %>
 </header>
 
-<body class="float-text">
-
+<body>
 
 
 
@@ -41,92 +40,51 @@
     </div>
     <div class="col s12 m6">
 
-      <div class="container">
-    
-    
-        <% productlist.forEach((product,index) =>{ %>
-          <% if(index%2) { %>
-            <div class="row">
-              <% } %>
-              <div class="col s12 m6">
-          <div class="card hoverable z-depth-1"> <a class="grey-text" href="/products/<%= product._id %>">
-            <img src="/images/<%= product.imagefilenames %>" alt="" class="card-image responsive-img">
+      <h2 class="header">Product list</h2>
 
-            <div class="card-content">
-                <span class="card-title">
-                        <h5><%= product.name %></h5></span>
-                      
-                      <span class="new badge <%= product.amount==0?'red':'blue' %>" data-badge-caption="Raktáron">
-                          <%= product.amount %></span>
-            <div class="divider"></div>
-            <div class="section">
-                    <div class="row">
-                    <div class="col s12">
-                <p>Product name</hp>
-                <h5>
-                    <%= product.name %>
-                </h5>
-            </div>
-                <div class="col s12">
-                        <p>Product id</p>
-                            <h5>
-                                    <%= product.product_id %>
-                            </h5>
-
-                    </div>
-            </div>
-            </div>
-            <% if (product.price){ %>
-            <div class="divider"></div>
-            <div class="section">
-
-                    <p><i class="material-icons">attach_money</i>Price</p>
-               <h5> <%= product.price %> Ft</h5>
-            </div>
-            <% } %>
-               
-                    
-          </div>
+      <ul class="collection">
+      <% productlist.forEach((product,index) =>{ %>
+        <a class="collection-item avatar" href="/products/<%= product._id %>">
+        <img src="/images/<%= product.imagefilenames %>" alt="" class="circle">
+        <div class="title">
+          <%= product.name %>
+          <span class="new badge <%= product.amount==0?'red':'blue' %>" data-badge-caption="Raktáron">
+              <%= product.amount %></span>
+        </div>
+        
+       
+       <p>Price: <%= product.price %> Ft <br>
+       ID: <%= product.product_id %></p>
+        
+       
         </a>
-          </div>
-          
-        </div>
-         <% if(index%2) { %>
-         </div>
-         <% } %>
-
-          <% }); %>
-        </div>
-        <div class="col s12 m3">
-          <h5 class=flow-text> Chatbox
-          </h5>
-          <img class="responsive-img materialboxed" src="/images/1538884585245.jpg">
-
-
-        </div>
-
-
-
-
-
-
-
-
-
-      </div>
+  <% }); %>
+</ul>
     </div>
+  <div class="col s12 m3">
+    <h5 class=flow-text> Chatbox
+    </h5>
+    <img class="responsive-img materialboxed" src="/images/1538884585245.jpg">
 
-    <% include ../partials/foot %>
-    <script>
-      $(document).ready(function () {
-        $('.collapsible').collapsible();
-      });
 
-      $(document).ready(function () {
-        $('.materialboxed').materialbox();
-      });
-    </script>
+  </div>
 
+  </div>
+  <div class="fixed-action-btn">
+
+      <a class="right btn-floating waves-effect waves-light red" href="/product/new"><i class="material-icons">add
+        </i></a>
+            </div>
+  <% include ../partials/foot %>
+  <script>
+    $(document).ready(function () {
+      $('.collapsible').collapsible();
+    });
+
+    $(document).ready(function () {
+      $('.materialboxed').materialbox();
+    });
+  </script>
 </body>
 
 </html>

@@ -116,6 +116,7 @@ module.exports.do_add_product = function (req, res) {
                 name: req.body.name,
                 product_id: req.body.product_id,
                 price: req.body.price,
+                amount: req.body.amount,
                 description: req.body.description,
                 imagefilenames: req.body.imagefilenames,
             };
@@ -197,6 +198,7 @@ module.exports.do_edit_product = function (req, res) {
                     name: req.body.name,
                     product_id: req.body.product_id,
                     price: req.body.price,
+                    amount: req.body.amount,
                     description: req.body.description,
                     imagefilenames: req.body.imagefilenames,
                 };
