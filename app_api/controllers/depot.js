@@ -3,7 +3,9 @@ var mongoose = require('mongoose');
 var Depot = mongoose.model('Depot');
 
 exports.depot_list = function (req, res) {
-    Depot.find().exec(function (err, depotlist) {
+    Depot.find()
+    .populate('product_list')
+    .exec(function (err, depotlist) {
         if (err) {
             utillib.sendJsonResponse(res, 404, err);
         } else {
@@ -35,7 +37,7 @@ exports.depot_create_get = function (req, res) {
         .create({
             name: req.body.name,
             place: req.body.place,
-            product_list: req.body.product_list,
+            //product_list: req.body.product_list,
             last_check_date: req.body.last_check_date,
         }, function (err, depot) {
             if (err) {
@@ -60,9 +62,9 @@ exports.depot_add_product = function (req, res) {
                         } else {
                             utillib.sendJsonResponse(res, 200, depot);
                         }
-                    })
+                    });
                 }
-            })
+            });
     } else {
         utillib.sendJsonResponse(res, 404, {
             "message": "Depot not found"
@@ -70,16 +72,21 @@ exports.depot_add_product = function (req, res) {
     }
 
 };
-
+// TODO :/ 
+exports.depot_change_product_amount = function(req,res){
+    if(req.params && req.params.depotid && req.params.product_id){
+        Depot.findByIdAndUpdate(req.params.depotid);
+    }
+}
 exports.depot_delete_product = function (req, res) {
-    if (req.params && req.params.depotid && req.body.product_id) {
+    if (req.params && req.params.depotid && req.params.product_id) {
         Depot
             .findById(req.params.depotid)
             .exec(function (err, depot) {
                 if (err) {
                     utillib.sendJsonResponse(res, 300, err);
                 } else {
-                    depot.product_list.pull(req.body.product_id);
+                    depot.product_list.pull(req.params.product_id);
                     depot.save(function (err, depot) {
                         if (err) {
                             utillib.sendJsonResponse(res, 300, err);
@@ -117,7 +124,7 @@ exports.depot_delete_get = function (req, res) {
 
     } else {
         utillib.sendJsonResponse(res, 404, {
-            "message": "Depot not found, you wanted to delete it anyways...."
+            "message": "Depot not found"
         });
     }
 };
@@ -136,13 +143,13 @@ exports.depot_update_get = function (req, res) {
                 } else {
                     depot.name = req.body.name;
                     depot.place = req.body.place;
-                    depot.product_list = req.body.product_list;
+                    //depot.product_list = req.body.product_list;
                     depot.last_check_date = req.body.last_check_date;
-                    depot.save(function (err, partner) {
+                    depot.save(function (err, dep) {
                         if (err) {
                             utillib.sendJsonResponse(res, 404, err);
                         } else {
-                            utillib.sendJsonResponse(res, 200, partner);
+                            utillib.sendJsonResponse(res, 200, dep);
                         }
                     });
                 }

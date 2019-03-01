@@ -7,13 +7,13 @@ var depot = new mongoose.Schema({
         required: true
     },
     place: String,
-    product_list: {
-        type: [{
+    product_list: [{
+        product: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Product'
-        }],
-        default: []
-    },
+        },
+        amount: Number
+    }],
     last_check_date: {
         type: Date,
         "default": Date.now()

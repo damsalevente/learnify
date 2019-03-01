@@ -8,6 +8,7 @@ exports.order_list = function (req, res) {
     Order
         .find()
         .populate('product_list.product')
+        .populate('partner')
         .exec(function (err, order_list) {
             if (err) {
                 utillib.sendJsonResponse(res, 300, err);
@@ -20,6 +21,8 @@ exports.order_list = function (req, res) {
 exports.order_detail = function (req, res) {
     if (req.params && req.params.orderid) {
         Order.findById(req.params.orderid)
+        .populate('product_list')
+        .populate('partner')
             .exec(function (err, order) {
                 if (err) {
                     utillib.sendJsonResponse(res, 300, err);
@@ -40,6 +43,7 @@ exports.order_create_get = function (req, res) {
         date: req.body.date,
         partner: req.body.partner,  // selected partner id
         order_status: req.body.order_status,
+
         //product_list: req.body.product_list,
     }, function (err, order) {
         if (err) {
@@ -84,9 +88,11 @@ exports.order_update_get = function (req, res) {
             } else {
                 // todo : it should have some validation
                 order.date = req.body.date;
-                order.partner = req.body.partner;
+                order.partner = req.body.partner; // this is a partner id
                 order.order_status = req.body.order_status;
-                order.product_list = req.body.product_list;
+                // no changerino this way -- yet 
+                //order.order_status = req.body.order_status;
+                //order.product_list = req.body.product_list;
                 order.save(function(err,order){
                     if(err){
                         utillib.sendJsonResponse(res,300,err);
