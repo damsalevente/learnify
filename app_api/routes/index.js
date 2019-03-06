@@ -11,6 +11,7 @@ router.get('/depots', control_depot.depot_list);
 router.get('/depots/:depotid',control_depot.depot_detail);
 router.post('/depots', control_depot.depot_create_get);
 router.put('/depots/:depotid', control_depot.depot_update_get);
+router.put('/depots/:depotid/products', control_depot.depot_update_amount);
 router.delete('/depots/:depotid', control_depot.depot_delete_get); 
 /* in that way, we will only use the product's id, and we push it to the ref array
 // idk if i want to create an endpoint for productid too, i feel like a link would be enough for the product list, but we 

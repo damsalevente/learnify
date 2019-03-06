@@ -6,7 +6,7 @@ var control_partner = require('../controllers/partner');
 var controlUser = require('../controllers/users');
 var controlCourseItem = require('../controllers/courseItem');
 var control_product = require('../controllers/product');
-
+var control_depot = require('../controllers/depot');
 /* Course pages */
 
 /* Course item */
@@ -34,6 +34,15 @@ router.post('/partner/new',control_partner.do_add_product);
 router.get('/partners/:partnerid/edit', control_partner.edit_product);
 router.post('/partners/:partnerid/edit',control_partner.do_edit_product);
 router.get('/partners/:partnerid/delete', control_partner.delete_product);
+
+/* Depot pages */
+router.get('/depots',control_depot.homelist);
+router.get('/depots/:depotid',control_depot.depot_detail);
+router.get('/depot/new',control_partner.add_product);
+router.post('depot/new',control_partner.do_add_product);
+router.get('/depot/:depotid/edit', control_partner.edit_product);
+router.post('depot/:depotid/edit',control_partner.do_edit_product);
+router.get('/depot/:depotid/delete', control_partner.delete_product);
 
 
 

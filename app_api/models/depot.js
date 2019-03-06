@@ -7,10 +7,11 @@ var depot = new mongoose.Schema({
         required: true
     },
     place: String,
-    product_list: [{
+    product_list:[{
+        _id : false,
         product: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product'
+            ref: 'Product',
         },
         amount: Number
     }],
