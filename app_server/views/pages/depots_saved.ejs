@@ -10,7 +10,13 @@
 </header>
 
 <body class="float-text">
-
+    <div class="carousel">
+        <a class="carousel-item" href="#one!"><img src="https://lorempixel.com/250/250/nature/1"></a>
+        <a class="carousel-item" href="#two!"><img src="https://lorempixel.com/250/250/nature/2"></a>
+        <a class="carousel-item" href="#three!"><img src="https://lorempixel.com/250/250/nature/3"></a>
+        <a class="carousel-item" href="#four!"><img src="https://lorempixel.com/250/250/nature/4"></a>
+        <a class="carousel-item" href="#five!"><img src="https://lorempixel.com/250/250/nature/5"></a>
+      </div>
 
 
   <div class="row">
@@ -86,37 +92,8 @@
               </div>
               <div class="card-action">
                 <a href="/depots/<%= depot._id %>">Details</a>
-                <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
 
-                <!-- Modal Structure -->
-                <div id="modal1" class="modal">
-                  <div class="modal-content">
-                    <h4>Depot items</h4>
-                    <table>
-                      <tr>
-                      <th>Név</th>
-                      <th>Cikkszám
-
-                      </th>
-                      <th> Mennyiség</th>
-                  </tr>
-                  <% depot.product_list.forEach((element) => { %>
-                      <tr>
-                      <td><%= element.product.name%>
-
-                      </td>
-                      <td><%= element.product.product_id%></td>
-                      <td>
-                          <%= element.amount %>
-                      </td>
-                  </tr>
-                      <% }) %>
-                  </table>
-                  </div>
-                  <div class="modal-footer">
-                    <a href="/depots/<%= depot._id %>" class="modal-close waves-effect waves-green btn-flat">Details</a>
-                  </div>
-                </div>
+               
 
               </div>
             </div>
@@ -148,14 +125,18 @@
   </div>
   </div>
 
+
+ 
+        
+    <script>
+       
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel');
+    var instances = M.Carousel.init(elems);
+  });
+      </script>
   <% include ../partials/foot %>
   <script>
-   
-   document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems);
-  });
-
 
     $(document).ready(function () {
       $('.collapsible').collapsible();

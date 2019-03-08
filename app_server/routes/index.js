@@ -38,12 +38,12 @@ router.get('/partners/:partnerid/delete', control_partner.delete_product);
 /* Depot pages */
 router.get('/depots',control_depot.homelist);
 router.get('/depots/:depotid',control_depot.depot_detail);
-router.get('/depot/new',control_partner.add_product);
-router.post('depot/new',control_partner.do_add_product);
-router.get('/depot/:depotid/edit', control_partner.edit_product);
-router.post('depot/:depotid/edit',control_partner.do_edit_product);
-router.get('/depot/:depotid/delete', control_partner.delete_product);
-
+//router.get('/depot/new',control_depot.add_depot);
+//router.post('depot/new',control_depot.do_add_depot);
+//router.get('/depot/:depotid/edit', control_depot.edit_depot);
+//router.post('depot/:depotid/edit',control_depot.do_edit_depot);
+//router.get('/depot/:depotid/delete', control_depot.delete_depot);
+router.get('/depots/:depotid/producttest', control_depot.raging);
 
 
 module.exports = router;

@@ -27,14 +27,8 @@
 
 
 
-                <div class="col s12 m8">
-                    <div class="card horizontal z-depth-2">
-                        <div class="card-image">
-                            <img class="responsive-img materialboxed" src="https://www.mrperswall.com/sites/default/files/styles/latest-item/public/wallpapers/wall/P020901-9.jpg?itok=4vcflYOv">
-                       
-                                  
-                        
-                        </div>
+                <div class="col m12 l8">
+                    <div class="card z-depth-2">
 
                         <div class="card-content">
                                 <span class="card-title">
@@ -79,34 +73,15 @@
                                 </h5>
                                
                                     </div>
-                                    <table>
-                                        <tr>
-                                        <th>Név</th>
-                                        <th>Cikkszám
-
-                                        </th>
-                                        <th> Mennyiség</th>
-                                    </tr>
-                                    <% depot.product_list.forEach((element) => { %>
-                                        <tr>
-                                        <td><%= element.product.name%>
-
-                                        </td>
-                                        <td><%= element.product.product_id%></td>
-                                        <td>
-                                            <%= element.amount %>
-                                        </td>
-                                    </tr>
-                                        <% }) %>
-                                    </table>
+                                   
                             </div>
-                            
+                           
                                 
 
                                 
                         </div>
                     </div>
-                    <div class="col s12 m4">
+                    <div class="col m12 l4">
                        
                         <div class="card ">
                             <div class="card-title ">Eladott termékek száma a hónapban?</div>
@@ -122,7 +97,26 @@
 
                     </div>
             </div>
+            <table class="highlight">
+                    <tr>
+                    <th>Név</th>
+                    <th>Cikkszám
 
+                    </th>
+                    <th> Mennyiség</th>
+                </tr>
+                <% depot.product_list.forEach((element) => { %>
+                    <tr>
+                    <td><%= element.product.name%>
+
+                    </td>
+                    <td><%= element.product.product_id%></td>
+                    <td>
+                        <%= element.amount %>
+                    </td>
+                </tr>
+                    <% }) %>
+                </table>
 
 
 
@@ -147,6 +141,10 @@
       direction: 'up',
       hoverEnabled: false
     });
+  });
+
+  $(document).ready(function(){
+    $('.tabs').tabs();
   });
     </script>
 
