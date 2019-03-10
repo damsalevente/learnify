@@ -38,6 +38,16 @@ router.get('/partners/:partnerid/delete', control_partner.delete_product);
 /* Depot pages */
 router.get('/depots',control_depot.homelist);
 router.get('/depots/:depotid',control_depot.depot_detail);
+router.get('/depots/:depotid/product/new', control_depot.create_product_get);
+
+router.post('/depots/:depotid/product/new', control_depot.add_module_post)
+router.get('/depot/new', control_depot.create_depot);
+router.post('/depot/new',control_depot.create_depot_post);
+router.get('/depots/:depotid/delete', control_depot.depot_delete);
+router.get('/depots/:depotid/product/edit', control_depot.depot_edit_product);
+router.post('/depots/:depotid/product/edit', control_depot.depot_edit_product_post);
+
+//router.post('/depots/:depotid/products/:productid')
 //router.get('/depot/new',control_depot.add_depot);
 //router.post('depot/new',control_depot.do_add_depot);
 //router.get('/depot/:depotid/edit', control_depot.edit_depot);

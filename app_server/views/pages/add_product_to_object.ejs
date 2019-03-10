@@ -14,21 +14,23 @@
 
 
   <div class="row">
-   
       <form class="col s6" action="", method="POST", role="form">
+          <div class="input-field col s12">
+              <select name="productid">
+                <option value="" disabled selected>Choose your option</option>
+                <% products.forEach((element) => { %>
+                  <option value="<%= element._id %>"><%= element.name %></option>
+                <% }); %>
+               
+              </select>
+              <label>Materialize Select</label>
+            </div>
+            <div class="input-field col s6">
+                <input placeholder="Placeholder" id="amount" type="number" name="amount" class="validate">
+                <label for="amount">amount</label>
+              </div>
+            
           <div class="input-field col s12 m6">
-          <input type="text" name="name">
-          <label for="name">Course name</label>
-          </div>
-          <div class="input-field col s12 m6">
-
-          <input type="text" name="type">
-          <label for="name">Course type</label>
-          
-          </div>
-          <div class="input-field col s12 m6">
-          <input type ="text" name="rating">
-          <label for="name">Rating</label>
           <button class="btn waves-effect waves-light" type="submit" name="action">Submit
               <i class="material-icons right">send</i>
             </button>
@@ -51,6 +53,12 @@
     $(document).ready(function () {
       $('.materialboxed').materialbox();
     });
+
+    document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });
+
   </script>
 </body>
 

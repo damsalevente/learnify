@@ -136,7 +136,7 @@ exports.depot_create_post = function (req, res) {
 
 exports.depot_delete_get = function (req, res) {
     if (req.params.depotid) {
-        Partner
+        Depot
             .findByIdAndRemove(req.params.depotid)
             .exec(function (err, depot) {
                 if (err) {
