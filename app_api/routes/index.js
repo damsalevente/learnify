@@ -13,9 +13,7 @@ router.post('/depots', control_depot.depot_create_get);
 router.put('/depots/:depotid', control_depot.depot_update_get);
 router.put('/depots/:depotid/products', control_depot.depot_update_amount);
 router.delete('/depots/:depotid', control_depot.depot_delete_get); 
-/* in that way, we will only use the product's id, and we push it to the ref array
-// idk if i want to create an endpoint for productid too, i feel like a link would be enough for the product list, but we 
-will see */
+/* in that way, we will only use the product's id, and we push it to the ref array*/
 router.post('/depots/:depotid/products', control_depot.depot_add_product);
 router.delete('/depots/:depotid/products/:product_id',control_depot.depot_delete_product)
 
@@ -37,10 +35,14 @@ router.delete('/partners/:partnerid', control_partner.partner_delete_get);
 /* Orders api */
 router.get('/orders', control_order.order_list);
 router.get('/orders/:orderid',control_order.order_detail);
+
 router.post('/orders', control_order.order_create_get);
 router.put('/orders/:orderid', control_order.order_update_get);
 router.delete('/orders/:orderid', control_order.order_delete_get); 
-router.post('/orders/:orderid',control_order.order_push_item);
+
+
+router.post('/orders/:orderid/products',control_order.order_push_item);
+router.put('/orders/:orderid/products/:productid', control_order.order_update_post);
 router.delete('/orders/:orderid/products/:productid',control_order.order_pull_item);
 
 module.exports = router;

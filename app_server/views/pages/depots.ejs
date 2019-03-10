@@ -9,36 +9,12 @@
   <% include ../partials/header %>
 </header>
 
-<body class="float-text">
+<body class="float-text blue-grey lighten-4">
 
 
 
   <div class="row">
-    <div class="col m12 l3">
-      <h5 class=flow-text>Sidenavbar</h5>
-      <ul class="collapsible">
-        <li>
-          <div class="collapsible-header  -text"><i class="material-icons">business_center</i>Courses</div>
-          <div class="collapsible-body  -text">
-
-
-
-            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="/new"><i class="material-icons left">filter_drama</i>
-              Add new
-
-            </a>
-            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
-              View my courses
-            </a>
-            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
-              Buddy write more than that
-            </a>
-
-        </li>
-      </ul>
-
-    </div>
-    <div class="col m12 l6">
+    <div class="col m12 l9">
 
       <div class="container">
         <div class="fixed-action-btn">
@@ -46,7 +22,7 @@
           <a class="right btn-floating waves-effect waves-light red" href="/depot/new"><i class="material-icons">add
             </i></a>
         </div>
-        <h2 class="header">Depots</h2>
+        <h2 class="header center">Depots</h2>
 
 
 
@@ -57,20 +33,19 @@
           <% } %>
           <div class="col m12 l6">
             <div class="card hoverable">
-              <div class="card-title ">
-                <h4>
-                  <%= depot.name %>
-                </h4>
-              </div>
+             
               <div class="card-content">
-
-
-                <%= depot.place %>
-
-                <div class="divider"></div>
-                <p>
-                  <%= depot.last_check_date.toString() %>
-                </p>
+                  <span class="card-title center">
+                      <h4 class="header">
+                        <%= depot.name %>
+                      </h4>
+                    </span>
+                    <p>Depot address:</p>
+                <h5><%= depot.place %></h5>
+                    <p>Last checked</p>
+                <h5>
+                  <%= depot.last_check_date %>
+                </h5>
                 <div class="divider"></div>
                 <div class="section">
                   <% if(depot.product_list.length >= 1){ %>
@@ -84,9 +59,9 @@
                 </div>
 
               </div>
-              <div class="card-action">
-                <a href="/depots/<%= depot._id %>">Details</a>
-                <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+              <div class="card-action  light-blue accent-4">
+                <a class="waves-effect waves-teal btn deep-orange accent-4" href="/depots/<%= depot._id %>">Details</a>
+                <a class="modal-trigger right  waves-effect waves-teal btn deep-orange accent-4" href="#modal1">Modal</a>
 
                 <!-- Modal Structure -->
                 <div id="modal1" class="modal">

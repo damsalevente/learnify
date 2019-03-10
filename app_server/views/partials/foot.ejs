@@ -1,6 +1,11 @@
     <script src="/javascripts/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
-
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.sidenav');
+        var instances = M.Sidenav.init(elems);
+      });
+    </script>
     <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
     <script src="/bootstrap/js/bootstrap-material-design.min.js"></script>
    <!-- <script src="/bootstrap/js/bootstrap.js"></script> -->

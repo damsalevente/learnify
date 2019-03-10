@@ -7,6 +7,7 @@ var controlUser = require('../controllers/users');
 var controlCourseItem = require('../controllers/courseItem');
 var control_product = require('../controllers/product');
 var control_depot = require('../controllers/depot');
+var control_order = require('../controllers/order');
 /* Course pages */
 
 /* Course item */
@@ -44,8 +45,9 @@ router.post('/depots/:depotid/product/new', control_depot.add_module_post)
 router.get('/depot/new', control_depot.create_depot);
 router.post('/depot/new',control_depot.create_depot_post);
 router.get('/depots/:depotid/delete', control_depot.depot_delete);
-router.get('/depots/:depotid/product/edit', control_depot.depot_edit_product);
-router.post('/depots/:depotid/product/edit', control_depot.depot_edit_product_post);
+router.get('/depots/:depotid/products/:productid/edit', control_depot.depot_edit_product);
+router.post('/depots/:depotid/products/:productid/edit', control_depot.depot_edit_product_post);
+router.get('/depots/:depotid/products/:productid/delete', control_depot.depot_delete_product_post);
 
 //router.post('/depots/:depotid/products/:productid')
 //router.get('/depot/new',control_depot.add_depot);
@@ -54,6 +56,17 @@ router.post('/depots/:depotid/product/edit', control_depot.depot_edit_product_po
 //router.post('depot/:depotid/edit',control_depot.do_edit_depot);
 //router.get('/depot/:depotid/delete', control_depot.delete_depot);
 router.get('/depots/:depotid/producttest', control_depot.raging);
+
+
+/* Order test */
+
+router.post('/orders/:orderid/product/new', control_order.add_module_post)
+router.get('/orders/new', control_order.create_order);
+router.post('/orders/new',control_order.create_order_post);
+router.get('/orders/:orderid/delete', control_order.order_delete);
+router.get('/orders/:orderid/products/:productid/edit', control_order.order_edit_product);
+router.post('/orders/:orderid/products/:productid/edit', control_order.order_edit_product_post);
+router.get('/orders/:orderid/products/:productid/delete', control_order.order_delete_product_post);
 
 
 module.exports = router;

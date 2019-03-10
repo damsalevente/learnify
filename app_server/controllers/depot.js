@@ -106,9 +106,9 @@ module.exports.add_module_post = function (req, res) {
     if (req.params && req.params.depotid) {
         // GET the products to let the user choose 
         var requestOptions, fpath;
-        fpath = '/api/depots/' + req.params.depotid+'/products';
+        fpath = '/api/depots/' + req.params.depotid + '/products';
         console.log(req.body);
-        request_data = {
+        let request_data = {
             productid: req.body.productid,
             amount: req.body.amount
         }
@@ -225,30 +225,74 @@ exports.depot_delete = (req, res) => {
     }
 }
 
-module.exports.depot_edit_product_post = function(req,res){
+module.exports.depot_edit_product_post = function (req, res) {
     var requestOptions, fpath;
-    if (req.params.depotid) {
-        fpath = '/depots/'+req.params.depotid+'/products';
+    if (req.params.depotid && req.params.productid) {
+        fpath = '/api/depots/' + req.params.depotid + '/products';
+        data_request = {
+            productid: req.params.productid,
+            amount: req.body.amount
+        }
         requestOptions = {
             url: apiOptions.server + fpath,
             method: 'PUT',
-            json: {}
+            json: data_request
         };
-}
+        request(requestOptions, function(err,response, body){
+            if(err){
+                console.log(err);
+            } else{
+                console.log(response.status);
+                console.log(body);
+                res.redirect('/depots/'+req.params.depotid);
+            }
+        });
+    }
 }
 
-module.exports.depot_edit_product = function(req,res){
+module.exports.depot_edit_product = function (req, res) {
     var requestOptions, fpath;
-    if (req.params && req.params.depotid) {
-        fpath = '/depots/'+req.params.depotid;
+    if (req.params && req.params.depotid && req.params.productid) {
+        fpath = '/api/depots/' + req.params.depotid;
         requestOptions = {
             url: apiOptions.server + fpath,
             method: 'GET',
             json: {}
         };
-        console.log(body);
-    res.render('views/amount_form', {toupdate: body})
-} else {
-    console.log('No');
-}
+        request(requestOptions, function(err,response,body){
+            if(err){
+                console.log(err);
+            } else {
+                console.log(response);
+                console.log(body);
+                console.log(body.product_list.find(x => x.product._id == req.params.productid));
+                res.render('pages/amount_form',{toupdate:body.product_list.find(x => x.product._id == req.params.productid)});
+            }
+        });
+        
+        
+    } else {
+        console.log('No');
+    }
+};
+
+module.exports.depot_delete_product_post = function (req, res) {
+    var requestOptions, fpath;
+    if (req.params.depotid && req.params.productid) {
+        fpath = '/api/depots/' + req.params.depotid + '/products/'+ req.params.productid;
+        requestOptions = {
+            url: apiOptions.server + fpath,
+            method: 'DELETE',
+            json: {}
+        };
+        request(requestOptions, function(err,response, body){
+            if(err){
+                console.log(err);
+            } else{
+                console.log(response.status);
+                console.log(body);
+                res.redirect('/depots/'+ req.params.depotid);
+            }
+        });
+    }
 }

@@ -21,8 +21,8 @@ exports.order_list = function (req, res) {
 exports.order_detail = function (req, res) {
     if (req.params && req.params.orderid) {
         Order.findById(req.params.orderid)
-        .populate('product_list')
-        .populate('partner')
+            .populate('product_list')
+            .populate('partner')
             .exec(function (err, order) {
                 if (err) {
                     utillib.sendJsonResponse(res, 300, err);
@@ -41,7 +41,7 @@ exports.order_detail = function (req, res) {
 exports.order_create_get = function (req, res) {
     Order.create({
         date: req.body.date,
-        partner: req.body.partner,  // selected partner id
+        partner: req.body.partner, // selected partner id
         order_status: req.body.order_status,
 
         //product_list: req.body.product_list,
@@ -79,104 +79,127 @@ exports.order_delete_post = function (req, res) {
 };
 
 exports.order_update_get = function (req, res) {
-   if(req.params && req.params.orderid){
-       Order
-        .findByIdAndUpdate(req.params.orderid)
-        .exec(function(err,order){
-            if(err){
-                utillib.sendJsonResponse(res,300,err);
-            } else {
-                // todo : it should have some validation
-                order.date = req.body.date;
-                order.partner = req.body.partner; // this is a partner id
-                order.order_status = req.body.order_status;
-                // no changerino this way -- yet 
-                //order.order_status = req.body.order_status;
-                //order.product_list = req.body.product_list;
-                order.save(function(err,order){
-                    if(err){
-                        utillib.sendJsonResponse(res,300,err);
-                    } else {
-                        utillib.sendJsonResponse(res,204, order);
-                    }
-                });
-                
-            }
+    if (req.params && req.params.orderid) {
+        Order
+            .findByIdAndUpdate(req.params.orderid)
+            .exec(function (err, order) {
+                if (err) {
+                    utillib.sendJsonResponse(res, 300, err);
+                } else {
+                    // todo : it should have some validation
+                    order.date = req.body.date;
+                    order.partner = req.body.partner; // this is a partner id
+                    order.order_status = req.body.order_status;
+                    // no changerino this way -- yet 
+                    //order.order_status = req.body.order_status;
+                    //order.product_list = req.body.product_list;
+                    order.save(function (err, order) {
+                        if (err) {
+                            utillib.sendJsonResponse(res, 300, err);
+                        } else {
+                            utillib.sendJsonResponse(res, 204, order);
+                        }
+                    });
+
+                }
+            });
+    } else {
+        utillib.sendJsonResponse(res, 404, {
+            "message": "Order not found",
         });
-   } else {
-       utillib.sendJsonResponse(res,404,{
-           "message": "Order not found",
-       });
-   }
+    }
 };
 
 exports.order_update_post = function (req, res) {
-    res.send('Not implemented');
+    if (req.params && req.params.orderid && req.params.productid){
+        Order.findById(req.params.orderid).exec(function (err, order) {
+            if (err) {
+                utillib.sendJsonResponse(res, 300, err);
+            } else {
+
+                var prod_index = order.product_list.findIndex(x => x.product === req.body.productid)
+                order.product_list[prod_index]['amount'] = req.body.amount;
+                order.save(function (err, saved_content) {
+                    if (err) {
+                        utillib.sendJsonResponse(res, 300, err);
+                    } else {
+                        utillib.sendJsonResponse(res, 200, saved_content);
+                    }
+                });
+            }
+        });
+    }
 };
 
-exports.order_push_item = function(req,res){
-    console.log('ide befut?');
-    if(req.params && req.params.orderid){
-        Order.findById(req.params.orderid).exec(function(err,order){
-            if(err){
-                utillib.sendJsonResponse(res,300,err);
-            } else{
+exports.order_push_item = function (req, res) {
+    if (req.params && req.params.orderid) {
+        Order.findById(req.params.orderid).exec(function (err, order) {
+            if (err) {
+                utillib.sendJsonResponse(res, 300, err);
+            } else {
                 Products.findById(req.body.productid)
-                    .exec(function(err,product){
-                        if(err){
-                            utillib.sendJsonResponse(res,300,err);
+                    .exec(function (err, product) {
+                        if (err) {
+                            utillib.sendJsonResponse(res, 300, err);
 
-                        }else if(product === null){
-                            utillib.sendJsonResponse(res,404,'product not found');
-                        } else{
-                            order.product_list.push({product: product._id, amount:req.body.amount});
+                        } else if (product === null) {
+                            utillib.sendJsonResponse(res, 404, 'product not found');
+                        } else {
+                            order.product_list.push({
+                                product: product._id,
+                                amount: req.body.amount
+                            });
                             console.log(order);
                             console.log(product._id);
                             console.log(req.body.amount);
-                           
+
                             order.save();
-                            utillib.sendJsonResponse(res,200,order);
+                            utillib.sendJsonResponse(res, 200, order);
                         }
                     });
             }
         });
     } else {
-        utillib.sendJsonResponse(res,404,{
-            "message":"Order with id not found"
+        utillib.sendJsonResponse(res, 404, {
+            "message": "Order with id not found"
         });
     }
 }
 
-exports.order_pull_item = function(req,res){
+exports.order_pull_item = function (req, res) {
     console.log('ide befut?');
-    if(req.params && req.params.orderid && req.params.productid){
-        Order.findById(req.params.orderid).exec(function(err,order){
-            if(err){
-                utillib.sendJsonResponse(res,300,err);
-            } else{
+    if (req.params && req.params.orderid && req.params.productid) {
+        Order.findById(req.params.orderid).exec(function (err, order) {
+            if (err) {
+                utillib.sendJsonResponse(res, 300, err);
+            } else {
 
                 Products.findById(req.params.productid)
-                    .exec(function(err,product){
-                        if(err){
-                            utillib.sendJsonResponse(res,300,err);
+                    .exec(function (err, product) {
+                        if (err) {
+                            utillib.sendJsonResponse(res, 300, err);
 
-                        }else if(product === null){
-                            utillib.sendJsonResponse(res,404,'product not found');
-                        } else{
-                            order.product_list.pull({ product: product._id});
+                        } else if (product === null) {
+                            utillib.sendJsonResponse(res, 404, 'product not found');
+                        } else {
+                            order.product_list.pull({
+                                product: product._id
+                            });
                             console.log(order);
                             console.log(product._id);
                             console.log(req.body.amount);
-                           
+
                             order.save();
-                            utillib.sendJsonResponse(res,200,{"message":"Element deleted"});
+                            utillib.sendJsonResponse(res, 200, {
+                                "message": "Element deleted"
+                            });
                         }
                     });
             }
         });
     } else {
-        utillib.sendJsonResponse(res,404,{
-            "message":"Order with id not found"
+        utillib.sendJsonResponse(res, 404, {
+            "message": "Order with id not found"
         });
     }
 }

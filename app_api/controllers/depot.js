@@ -110,7 +110,7 @@ exports.depot_delete_product = function (req, res) {
                 if (err) {
                     utillib.sendJsonResponse(res, 300, err);
                 } else {
-                    depot.product_list.pull(req.params.product_id);
+                    depot.product_list.pull({product: req.params.product_id});
                     depot.save(function (err, depot) {
                         if (err) {
                             utillib.sendJsonResponse(res, 300, err);
