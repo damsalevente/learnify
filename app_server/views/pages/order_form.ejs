@@ -13,17 +13,24 @@
       <form action="", method="POST">
             <div class="row">
                 <div class="input-field col s12">
-                    <input  type="text" name="order_status">
+                    <input value="<%= editvalue['order_status'] %>"  type="text" name="order_status">
                     <label for="name">Order status</label>
                   </div>
+          
+                    <div class="input-field col s12">
+                      <select name="partner">
+                        <option value="" disabled selected>Choose your option</option>
+                        <% partners.forEach((element) => { %>
+                          <option value="<%= element._id %>"><%= element.name %></option>
+                        <% }); %>
+                       
+                      </select>
+                      <label>Materialize Select</label>
+                    </div>
+                  
                   <div class="input-field col s12">
           
-                    <input type="text" name="place">
-                    <label for="name">place</label>
-                  </div>
-                  <div class="input-field col s12">
-          
-                    <input type="text" class="datepicker" name="place">
+                    <input value="<%= editvalue['date'] %>" type="text" class="datepicker" name="date">
                     <label for="name">Date</label>
                   </div>
                 </div>
@@ -42,6 +49,12 @@
     var elems = document.querySelectorAll('.datepicker');
     var instances = M.Datepicker.init(elems);
   });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems);
+  });
+
 
     </script>
   </html>

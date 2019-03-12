@@ -70,6 +70,7 @@ router.get('/orders/:orderid/delete', control_order.order_delete);
 router.get('/orders/:orderid/products/:productid/edit', control_order.order_edit_product);
 router.post('/orders/:orderid/products/:productid/edit', control_order.order_edit_product_post);
 router.get('/orders/:orderid/products/:productid/delete', control_order.order_delete_product_post);
-
+router.get('/orders/:orderid/edit',control_order.order_edit);
+router.post('/orders/:orderid/edit', control_order.order_edit_post);
 
 module.exports = router;

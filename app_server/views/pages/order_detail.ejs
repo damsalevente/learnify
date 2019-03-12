@@ -14,7 +14,7 @@
                         <i class="large material-icons">mode_edit</i>
                       </a>
                       <ul>
-            <li><a href="http://localhost:3000/orders/edit" class="btn-floating waves-effect"><i class="material-icons">edit</i></a>
+            <li><a href="http://localhost:3000/orders/<%= order._id %>/edit" class="btn-floating waves-effect"><i class="material-icons">edit</i></a>
             </li>
             <li><a href="http://localhost:3000/orders/<%= order._id %>/delete" class="btn-floating waves-effect"><i class="material-icons">delete</i></a>
             </li>
@@ -33,13 +33,27 @@
                         <div class="card-content">
                                 <span class="card-title">
                                    
-                                        <h4><%= order.name %></h4></span>
+                                        <h4><%= order.order_status %></h4></span>
                             <div class="divider"></div>
                             <div class="section">
                                     
-                                <p>Address</hp>
+                                <p>Date</hp>
                                 <h5>
-                                    <%= order.place %>
+                                    <%= order.date %>
+                                </h5>
+
+                              
+                                      
+
+                                   
+                            </div>
+                            <div class="divider"></div>
+                            <div class="divider"></div>
+                            <div class="section">
+                                    
+                                <p>Partner name</hp>
+                                <h5>
+                                    <%= order.partner.name %>
                                 </h5>
 
                               

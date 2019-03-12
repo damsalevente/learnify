@@ -88,6 +88,7 @@ module.exports.order_detail = function (req, res) {
                 res.status(300);
                 res.json(err);
             } else if (response.statusCode == 200) {
+                console.log(body)
                 res.render('pages/order_detail', {
                     title: 'order detail',
                     order: body,
@@ -161,8 +162,29 @@ module.exports.create_product_get = function (req, res) {
 }
 
 module.exports.create_order = function (req, res) {
-    res.render('pages/order_form', {
-        title: "Create order"
+    var requestOptions, fpath;
+        fpath = '/api/partners';
+        requestOptions = {
+            url: apiOptions.server + fpath, // you know why it's required
+            method: 'GET', // default is get, 
+            json: {}
+            // good practice, and ensures that i get json back -> no, it gives back plain string, not json if i dont use it lmao
+        };
+    request(requestOptions,function(err,response,body){
+        if(err){
+            console.log(err)
+        } else {
+            console.log(body);
+            console.log(typeof(body));
+            res.render('pages/order_form', {
+                title: "Create order",
+                partners: body,
+                editvalue:{
+                    date:'',
+                    order_status:''
+                }
+            });
+        }
     });
 }
 
@@ -176,8 +198,9 @@ module.exports.create_order_post = function (req, res) {
             url: apiOptions.server + fpath, // you know why it's required
             method: 'POST', // default is get, 
             json: {
-                //date: req.body.date,
-                order_status: req.body.order_status
+                date: req.body.date,
+                order_status: req.body.order_status,
+                partner: req.body.partner
             }, // good practice, and ensures that i get json back -> no, it gives back plain string, not json if i dont use it lmao
         };
         request(requestOptions, function (err, resp, body) {
@@ -247,6 +270,30 @@ module.exports.order_edit_product_post = function (req, res) {
     } else {
         console.log('no');
     }
+}
+
+module.exports.order_edit = function(req,res){
+    var requestOptions, fpath;
+    if (req.params && req.params.orderid) {
+        fpath = '/api/orders/' + req.params.orderid;
+        requestOptions = {
+            url: apiOptions.server + fpath,
+            method: 'GET',
+            json: {}
+        };
+        request(requestOptions,function(err,response,body){
+            if(err){
+                console.log(err);
+            } else {
+                console.log(body);
+                res.render('pages/order_form',{'title':'Order edit', editvalue:body});
+            }
+        })
+    }
+}
+
+module.exports.order_edit_post = function(req,res){
+
 }
 
 module.exports.order_edit_product = function (req, res) {

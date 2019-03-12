@@ -49,6 +49,7 @@ exports.order_create_get = function (req, res) {
         if (err) {
             utillib.sendJsonResponse(res, 300, err);
         } else {
+            console.log(order);
             utillib.sendJsonResponse(res, 200, order);
         }
     });
