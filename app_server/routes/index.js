@@ -24,7 +24,7 @@ router.get('/product/new',control_product.add_product);
 router.post('/product/new',control_product.do_add_product);
 router.get('/products/:productid/edit', control_product.edit_product);
 router.post('/products/:productid/edit',control_product.do_edit_product);
-router.get('/products/:productid/delete', control_product.delete_product);
+router.get('/products/:productid/delete',control_depot.filter_deleted, control_product.delete_product);
 
 /* Partner pages */
 
@@ -58,11 +58,14 @@ router.get('/depots/:depotid/products/:productid/delete', control_depot.depot_de
 router.get('/depots/:depotid/producttest', control_depot.raging);
 
 
-/* Order test */
+/* Order */
+router.get('/orders', control_order.homelist);
+router.get('/orders/:orderid', control_order.order_detail);
+router.get('/orders/:orderid/product/new', control_order.create_product_get)
 
 router.post('/orders/:orderid/product/new', control_order.add_module_post)
-router.get('/orders/new', control_order.create_order);
-router.post('/orders/new',control_order.create_order_post);
+router.get('/order/new', control_order.create_order);
+router.post('/order/new',control_order.create_order_post);
 router.get('/orders/:orderid/delete', control_order.order_delete);
 router.get('/orders/:orderid/products/:productid/edit', control_order.order_edit_product);
 router.post('/orders/:orderid/products/:productid/edit', control_order.order_edit_product_post);

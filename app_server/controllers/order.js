@@ -93,6 +93,7 @@ module.exports.order_detail = function (req, res) {
                     order: body,
                 });
             } else {
+                console.log('This is it ')
                 console.log(response);
                 res.status(response.statusCode);
                 res.json(response.body);
@@ -168,22 +169,20 @@ module.exports.create_order = function (req, res) {
 module.exports.create_order_post = function (req, res) {
     // get the data for request
     console.log(req.body);
-    if (req.body.name && req.body.place) {
+    if (req.body.order_status) {
         var requestOptions, fpath;
         fpath = '/api/orders';
         requestOptions = {
             url: apiOptions.server + fpath, // you know why it's required
             method: 'POST', // default is get, 
             json: {
-                name: req.body.name,
-                place: req.body.place
+                //date: req.body.date,
+                order_status: req.body.order_status
             }, // good practice, and ensures that i get json back -> no, it gives back plain string, not json if i dont use it lmao
         };
         request(requestOptions, function (err, resp, body) {
             if (err) {
-                res.render('error', {
-                    error: err
-                });
+               console.log(err);
             } else {
                 console.log(resp);
                 res.redirect('/orders/');
@@ -228,8 +227,8 @@ exports.order_delete = (req, res) => {
 module.exports.order_edit_product_post = function (req, res) {
     var requestOptions, fpath;
     if (req.params.orderid && req.params.productid) {
-        fpath = '/api/orders/' + req.params.orderid + '/products';
-        data_request = {
+        fpath = '/api/orders/' + req.params.orderid + '/products/' + req.params.productid;
+        let data_request = {
             productid: req.params.productid,
             amount: req.body.amount
         }
@@ -242,11 +241,11 @@ module.exports.order_edit_product_post = function (req, res) {
             if(err){
                 console.log(err);
             } else{
-                console.log(response.status);
-                console.log(body);
                 res.redirect('/orders/'+req.params.orderid);
             }
         });
+    } else {
+        console.log('no');
     }
 }
 

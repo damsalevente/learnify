@@ -60,7 +60,9 @@ module.exports.homelist = function (req, res) {
             res.status(300);
             res.json(err);
         } else if (response.statusCode == 200) {
-
+            body.forEach(element => {
+                console.log(element);
+            });
             res.render('pages/depots', {
                 title: 'Depot list',
                 depotlist: body,
@@ -186,6 +188,7 @@ module.exports.create_depot_post = function (req, res) {
                 });
             } else {
                 console.log(resp);
+                console.log(body);
                 res.redirect('/depots/');
             }
         })
@@ -229,7 +232,7 @@ module.exports.depot_edit_product_post = function (req, res) {
     var requestOptions, fpath;
     if (req.params.depotid && req.params.productid) {
         fpath = '/api/depots/' + req.params.depotid + '/products';
-        data_request = {
+        let data_request = {
             productid: req.params.productid,
             amount: req.body.amount
         }
@@ -295,4 +298,45 @@ module.exports.depot_delete_product_post = function (req, res) {
             }
         });
     }
+},
+
+/*
+Find the to be deleted product_id from all depots and remove them
+*/
+module.exports.filter_deleted = function(req,res,next){
+    if(req.params && req.params.productid){
+        var requestOptions, fpath;
+        fpath = '/api/depots/';
+        requestOptions = {
+            url: apiOptions.server + fpath,
+            method: 'GET',
+            json: {}
+        };
+        request(requestOptions, function(err,response,body){
+            if(err){
+                console.log(err);
+            } else {
+                console.log(response.statusCode);
+                console.log(body);
+                body.forEach(element => {
+                    
+                    fpath = '/api/depots/' + element._id + '/products/'+ req.params.productid;
+                    requestOptions = {
+                        url: apiOptions.server + fpath,
+                        method: 'DELETE',
+                        json: {}
+                    };
+                    request(requestOptions, function(error_delete, response_delete, body_delete){
+                        if(err){
+                            console.log(err)
+                        } else {
+                            console.log(response_delete);
+                            console.log(body_delete);
+                        }
+                    });
+                });
+            }
+        });
+    }
+    next();
 }

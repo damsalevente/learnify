@@ -21,7 +21,7 @@ exports.order_list = function (req, res) {
 exports.order_detail = function (req, res) {
     if (req.params && req.params.orderid) {
         Order.findById(req.params.orderid)
-            .populate('product_list')
+            .populate('product_list.product')
             .populate('partner')
             .exec(function (err, order) {
                 if (err) {
@@ -88,7 +88,7 @@ exports.order_update_get = function (req, res) {
                 } else {
                     // todo : it should have some validation
                     order.date = req.body.date;
-                    order.partner = req.body.partner; // this is a partner id
+                    order.partner = req.body.partner; // this is a partner id, a select list option 
                     order.order_status = req.body.order_status;
                     // no changerino this way -- yet 
                     //order.order_status = req.body.order_status;
@@ -117,7 +117,7 @@ exports.order_update_post = function (req, res) {
                 utillib.sendJsonResponse(res, 300, err);
             } else {
 
-                var prod_index = order.product_list.findIndex(x => x.product === req.body.productid)
+                var prod_index = order.product_list.findIndex(x => x.product == req.body.productid)
                 order.product_list[prod_index]['amount'] = req.body.amount;
                 order.save(function (err, saved_content) {
                     if (err) {
@@ -128,6 +128,8 @@ exports.order_update_post = function (req, res) {
                 });
             }
         });
+    } else {
+        utillib.sendJsonResponse(res,300,{"message":"Not found"});
     }
 };
 
@@ -145,6 +147,11 @@ exports.order_push_item = function (req, res) {
                         } else if (product === null) {
                             utillib.sendJsonResponse(res, 404, 'product not found');
                         } else {
+                            var found = [];
+                            if(order.product_list){
+                                found = order.product_list.filter(x => x.product == req.body.productid);
+                            }
+                            if(found.length === 0){
                             order.product_list.push({
                                 product: product._id,
                                 amount: req.body.amount
@@ -155,6 +162,10 @@ exports.order_push_item = function (req, res) {
 
                             order.save();
                             utillib.sendJsonResponse(res, 200, order);
+                        } else{
+                        utillib.sendJsonResponse(res,300,{"message":"Mรกr van ilyen"});
+
+                        }
                         }
                     });
             }
@@ -203,3 +214,55 @@ exports.order_pull_item = function (req, res) {
         });
     }
 }
+
+exports.order_update_amount = function (req, res) {
+    if (req.params.orderid) {
+        Order
+            .findById(req.params.orderid)
+            .exec(function (err, order) {
+                if (err) {
+                    utillib.sendJsonResponse(res, 404, err);
+                } else {
+                    var product_index = order.product_list.findIndex(x => req.body.productid == x.product._id );
+                    if (product_index === -1) {
+                        utillib.sendJsonResponse(res, 404, {
+                            'message': 'product not found in list'
+                        });
+                    } else {
+                        order.product_list[product_index]['amount'] = req.body.amount;
+
+                        order.save(function (err, dep) {
+                            if (err) {
+                                utillib.sendJsonResponse(res, 404, err);
+                            } else {
+                                utillib.sendJsonResponse(res, 200, dep);
+                            }
+                        });
+                    }
+                }
+            });
+    } else {
+        utillib.sendJsonResponse(res, 404, {
+            "message": "Partner not found"
+        });
+    }
+};
+
+exports.order_delete_get = function (req, res) {
+    if (req.params.orderid) {
+        Order
+            .findByIdAndRemove(req.params.orderid)
+            .exec(function (err, order) {
+                if (err) {
+                    utillib.sendJsonResponse(res, 404, err);
+                } else {
+                    utillib.sendJsonResponse(res, 204, order);
+                }
+            });
+
+    } else {
+        utillib.sendJsonResponse(res, 404, {
+            "message": "order not found"
+        });
+    }
+};

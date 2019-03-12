@@ -57,7 +57,7 @@ exports.depot_add_product = function (req, res) {
                 } else {
                     var found = [];
                     if(depot.product_list){
-                        var found = depot.product_list.filter(x => x.product == req.body.productid);
+                        found = depot.product_list.filter(x => x.product == req.body.productid);
                     }
                     if(found.length === 0){
                         depot.product_list.push({product: req.body.productid, amount: req.body.amount});
@@ -69,7 +69,7 @@ exports.depot_add_product = function (req, res) {
                             }
                         });
                        } else {
-                        utillib.sendJsonResponse(res,200,{"message":"Már van ilyen"});
+                        utillib.sendJsonResponse(res,300,{"message":"Már van ilyen"});
 
                        }
                 }
