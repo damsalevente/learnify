@@ -163,25 +163,25 @@ module.exports.create_product_get = function (req, res) {
 
 module.exports.create_order = function (req, res) {
     var requestOptions, fpath;
-        fpath = '/api/partners';
-        requestOptions = {
-            url: apiOptions.server + fpath, // you know why it's required
-            method: 'GET', // default is get, 
-            json: {}
-            // good practice, and ensures that i get json back -> no, it gives back plain string, not json if i dont use it lmao
-        };
-    request(requestOptions,function(err,response,body){
-        if(err){
+    fpath = '/api/partners';
+    requestOptions = {
+        url: apiOptions.server + fpath, // you know why it's required
+        method: 'GET', // default is get, 
+        json: {}
+        // good practice, and ensures that i get json back -> no, it gives back plain string, not json if i dont use it lmao
+    };
+    request(requestOptions, function (err, response, body) {
+        if (err) {
             console.log(err)
         } else {
             console.log(body);
-            console.log(typeof(body));
+            console.log(typeof (body));
             res.render('pages/order_form', {
                 title: "Create order",
                 partners: body,
-                editvalue:{
-                    date:'',
-                    order_status:''
+                editvalue: {
+                    date: '',
+                    order_status: ''
                 }
             });
         }
@@ -205,7 +205,7 @@ module.exports.create_order_post = function (req, res) {
         };
         request(requestOptions, function (err, resp, body) {
             if (err) {
-               console.log(err);
+                console.log(err);
             } else {
                 console.log(resp);
                 res.redirect('/orders/');
@@ -260,11 +260,11 @@ module.exports.order_edit_product_post = function (req, res) {
             method: 'PUT',
             json: data_request
         };
-        request(requestOptions, function(err,response, body){
-            if(err){
+        request(requestOptions, function (err, response, body) {
+            if (err) {
                 console.log(err);
-            } else{
-                res.redirect('/orders/'+req.params.orderid);
+            } else {
+                res.redirect('/orders/' + req.params.orderid);
             }
         });
     } else {
@@ -272,7 +272,7 @@ module.exports.order_edit_product_post = function (req, res) {
     }
 }
 
-module.exports.order_edit = function(req,res){
+module.exports.order_edit = function (req, res) {
     var requestOptions, fpath;
     if (req.params && req.params.orderid) {
         fpath = '/api/orders/' + req.params.orderid;
@@ -281,21 +281,61 @@ module.exports.order_edit = function(req,res){
             method: 'GET',
             json: {}
         };
-        request(requestOptions,function(err,response,body){
-            if(err){
+        request(requestOptions, function (err, response, body) {
+            if (err) {
                 console.log(err);
             } else {
+                fpath = '/api/partners/';
+                requestOptions = {
+                    url: apiOptions.server + fpath,
+                    method: 'GET',
+                    json: {}
+                };
                 console.log(body);
-                res.render('pages/order_form',{'title':'Order edit', editvalue:body});
+                request(requestOptions, function (err_1, response_1, body_1) {
+                    if (err_1) {
+                        console.log(err_1);
+                    } else {
+                        console.log(body_1);
+                        res.render('pages/order_form', {
+                            'title': 'Order edit',
+                            editvalue: body,
+                            partners: body_1
+                        });
+
+                    }
+                })
             }
         })
     }
 }
 
-module.exports.order_edit_post = function(req,res){
+module.exports.order_edit_post = function (req, res) {
+    var requestOptions, fpath;
+    if (req.params && req.params.orderid) {
+        const data_to_update = {
+            date: req.body.date,
+            partner: req.body.partner,
+            order_status: req.body.order_status
+        }
+        fpath = '/api/orders/' + req.params.orderid;
+        requestOptions = {
+            url: apiOptions.server + fpath,
+            method: 'PUT',
+            json: data_to_update
+        };
+        request(requestOptions,function(err,response,body){
+            if(err){
+                console.log(err)
+            } else {
+                console.log(response);
+                console.log(body);
+                res.redirect('/orders/'+req.params.orderid);
+            }
+        })
+    }
 
 }
-
 module.exports.order_edit_product = function (req, res) {
     var requestOptions, fpath;
     if (req.params && req.params.orderid && req.params.productid) {
@@ -305,18 +345,20 @@ module.exports.order_edit_product = function (req, res) {
             method: 'GET',
             json: {}
         };
-        request(requestOptions, function(err,response,body){
-            if(err){
+        request(requestOptions, function (err, response, body) {
+            if (err) {
                 console.log(err);
             } else {
                 console.log(response);
                 console.log(body);
                 console.log(body.product_list.find(x => x.product._id == req.params.productid));
-                res.render('pages/amount_form',{toupdate:body.product_list.find(x => x.product._id == req.params.productid)});
+                res.render('pages/amount_form', {
+                    toupdate: body.product_list.find(x => x.product._id == req.params.productid)
+                });
             }
         });
-        
-        
+
+
     } else {
         console.log('No');
     }
@@ -325,19 +367,19 @@ module.exports.order_edit_product = function (req, res) {
 module.exports.order_delete_product_post = function (req, res) {
     var requestOptions, fpath;
     if (req.params.orderid && req.params.productid) {
-        fpath = '/api/orders/' + req.params.orderid + '/products/'+ req.params.productid;
+        fpath = '/api/orders/' + req.params.orderid + '/products/' + req.params.productid;
         requestOptions = {
             url: apiOptions.server + fpath,
             method: 'DELETE',
             json: {}
         };
-        request(requestOptions, function(err,response, body){
-            if(err){
+        request(requestOptions, function (err, response, body) {
+            if (err) {
                 console.log(err);
-            } else{
+            } else {
                 console.log(response.status);
                 console.log(body);
-                res.redirect('/orders/'+ req.params.orderid);
+                res.redirect('/orders/' + req.params.orderid);
             }
         });
     }
