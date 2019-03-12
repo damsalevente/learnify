@@ -50,11 +50,12 @@
                             <div class="divider"></div>
                             <div class="divider"></div>
                             <div class="section">
-                                    
+                                    <% if(typeof partner !== "undefined") {%>
                                 <p>Partner name</hp>
                                 <h5>
                                     <%= order.partner.name %>
                                 </h5>
+                                <% } %>
 
                               
                                       
