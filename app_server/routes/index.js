@@ -45,6 +45,9 @@ router.post('/depots/:depotid/product/new', control_depot.add_module_post)
 router.get('/depot/new', control_depot.create_depot);
 router.post('/depot/new',control_depot.create_depot_post);
 router.get('/depots/:depotid/delete', control_depot.depot_delete);
+router.get('/depots/:depotid/edit', control_depot.depot_edit_get);
+router.post('/depots/:depotid/edit', control_depot.depot_edit_post);
+
 router.get('/depots/:depotid/products/:productid/edit', control_depot.depot_edit_product);
 router.post('/depots/:depotid/products/:productid/edit', control_depot.depot_edit_product_post);
 router.get('/depots/:depotid/products/:productid/delete', control_depot.depot_delete_product_post);

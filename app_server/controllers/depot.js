@@ -163,7 +163,11 @@ module.exports.create_product_get = function (req, res) {
 
 module.exports.create_depot = function (req, res) {
     res.render('pages/depot_form', {
-        title: "Create Depot"
+        title: "Create Depot",
+        depot:{
+            name:"",
+            place:""
+        }
     });
 }
 
@@ -339,4 +343,53 @@ module.exports.filter_deleted = function(req,res,next){
         });
     }
     next();
+}
+
+module.exports.depot_edit_get = (req,res,next) => {
+    if(req.params && req.params.depotid){
+        var requestOptions, fpath;
+        fpath = '/api/depots/' + req.params.depotid;
+        requestOptions = {
+            url: apiOptions.server + fpath,
+            method: 'GET',
+            json: {}
+        };
+    }
+    request(requestOptions, function(err, response, body){
+        console.log(body);
+        res.render('pages/depot_form', {
+            title: "Create Depot",
+            depot: body
+        });
+    })
+
+}
+
+module.exports.depot_edit_post = (req,res,next) => {
+    if(req.params && req.params.depotid){
+        var requestOptions,fpath;
+        fpath = '/api/depots/' + req.params.depotid;
+        requestOptions = {
+            url: apiOptions.server + fpath,
+            method: 'PUT',
+            json: {
+                name: req.body.name,
+                place: req.body.place
+            }
+        }
+        request(requestOptions, function(err,response, body ){
+            if(err){
+                console.log(err);
+                next();
+            } else {
+                console.log(response);
+                console.log(body);
+                res.redirect('/depots/'+req.params.depotid);
+            }
+        });
+
+
+    } else {
+        res.render('error', {title:"error",message:"Depotid not found"});
+    }
 }

@@ -13,12 +13,12 @@
       <form action="", method="POST">
             <div class="row">
                 <div class="input-field col s12">
-                    <input  type="text" name="name">
+                    <input value="<%= depot.name || ''%>"  type="text" name="name">
                     <label for="name">Name</label>
                   </div>
                   <div class="input-field col s12">
           
-                    <input type="text" name="place">
+                    <input value="<%= depot.place || ''%>"  type="text" name="place">
                     <label for="name">place</label>
                   </div>
                 </div>
