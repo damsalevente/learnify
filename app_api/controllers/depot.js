@@ -130,9 +130,6 @@ exports.depot_delete_product = function (req, res) {
     }
 };
 
-exports.depot_create_post = function (req, res) {
-    res.send('Not implemented');
-};
 
 exports.depot_delete_get = function (req, res) {
     if (req.params.depotid) {
@@ -153,9 +150,6 @@ exports.depot_delete_get = function (req, res) {
     }
 };
 
-exports.depot_delete_post = function (req, res) {
-    res.send('Not implemented');
-};
 
 exports.depot_update_amount = function (req, res) {
     if (req.params.depotid) {
@@ -216,8 +210,4 @@ exports.depot_update_get = function (req, res) {
             "message": "Partner not found"
         });
     }
-};
-
-exports.depot_update_post = function (req, res) {
-    res.send('Not implemented');
 };

@@ -4,6 +4,9 @@
 <head>
 
   <% include ../partials/head %>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+  <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+
 </head>
 <header>
   <% include ../partials/header %>
@@ -60,6 +63,8 @@
         </a>
   <% }); %>
 </ul>
+<div class="ct-chart ct-perfect-fourth"></div>
+
     </div>
   <div class="col s12 m3">
     <h5 class=flow-text> Chatbox
@@ -84,7 +89,23 @@
     $(document).ready(function () {
       $('.materialboxed').materialbox();
     });
+
+    new Chartist.Line('.ct-chart', {
+  series: [[
+    {x: 1, y: 100},
+    {x: 2, y: 50},
+    {x: 3, y: 25},
+    {x: 5, y: 38},
+    {x: 8, y: 6.25}
+  ]]
+}, {
+  axisX: {
+    type: Chartist.AutoScaleAxis,
+    onlyInteger: true
+  }
+});
   </script>
+
 </body>
 
 </html>

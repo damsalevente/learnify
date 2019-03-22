@@ -93,11 +93,12 @@ module.exports.product_update_get = function (req, res) {
     Product
       .findByIdAndUpdate(productid)
       .exec(function (err, product) {
-        if(!product){
-          utillib.sendJsonResponse(res,404,{"message":"Product not found "});
+        if (!product) {
+          utillib.sendJsonResponse(res, 404, {
+            "message": "Product not found "
+          });
           return;
-        }
-        else if (err) {
+        } else if (err) {
           utillib.sendJsonResponse(res, 300, err);
         } else {
           product.name = req.body.name;

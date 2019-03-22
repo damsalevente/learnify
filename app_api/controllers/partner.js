@@ -9,7 +9,7 @@ module.exports.partner_list = function (req, res) {
         .find()
         .exec(function (err, partners) {
             if (err) {
-                sendJsonResponse(res, 404, err);
+                utillib.sendJsonResponse(res, 404, err);
                 return;
             }
             utillib.sendJsonResponse(res, 200, partners);

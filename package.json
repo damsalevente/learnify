@@ -8,6 +8,7 @@
   "dependencies": {
     "body-parser": "~1.0.0",
     "bootstrap-material-design": "^4.1.1",
+    "chartist": "^0.11.0",
     "cookie-parser": "~1.0.1",
     "debug": "~0.7.4",
     "ejs": "~0.8.5",
