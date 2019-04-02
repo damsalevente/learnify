@@ -18,6 +18,7 @@ module.exports.raging = function (req, res) {
         json: {}, // good practice, and ensures that i get json back -> no, it gives back plain string, not json if i dont use it lmao
 
     };
+   
     request(requestOptions, function (err, response, body) {
         if (err) {
             res.status(300);
@@ -55,6 +56,7 @@ module.exports.homelist = function (req, res) {
         json: {}, // good practice, and ensures that i get json back -> no, it gives back plain string, not json if i dont use it lmao
 
     };
+  
     request(requestOptions, function (err, response, body) {
         if (err) {
             res.status(300);

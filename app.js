@@ -26,7 +26,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(function(req,res,next){
+    res.tpl = {};
+    res.tpl.error = {};
 
+    return next();
+})
 app.use('/', routes);
 app.use('/api',routesApi);
 app.use('/users', users);

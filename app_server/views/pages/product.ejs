@@ -19,7 +19,7 @@
                 <div class="col s12 m8">
                     <div class="card horizontal z-depth-2">
                         <div class="card-image">
-                            <img class="responsive-img materialboxed" src="/images/<%= product.imagefilenames %>">
+                            <img class="responsive-img materialboxed" src="/images/<%= data.imagefilenames %>">
                        
                                   
                         
@@ -27,32 +27,32 @@
 
                         <div class="card-content">
                                 <span class="card-title">
-                                        <h4><%= product.name %></h4></span>
+                                        <h4><%= data.name %></h4></span>
                             <div class="divider"></div>
                             <div class="section">
                                     <div class="row">
                                     <div class="col s12 m6">
                                 <p>Product name</hp>
                                 <h5>
-                                    <%= product.name %>
+                                    <%= data.name %>
                                 </h5>
                             </div>
 
                                 <div class="col s12 m6">
                                         <p>Product id</p>
                                             <h5>
-                                                    <%= product.product_id %>
+                                                    <%= data.product_id %>
                                             </h5>
 
                                     </div>
                             </div>
                             </div>
-                            <% if (product.price){ %>
+                            <% if (data.price){ %>
                             <div class="divider"></div>
                             <div class="section">
 
                                     <p><i class="material-icons">attach_money</i>Price</p>
-                               <h5> <%= product.price %> Ft</h5>
+                               <h5> <%= data.price %> Ft</h5>
                             </div>
                             <% } %>
                             <div class="divider"></div>
@@ -60,10 +60,10 @@
                               
                                 <p>Description</p>
                                 <h5>
-                                    <%= product.description %>
+                                    <%= data.description %>
                                 </h5>
-                                <span class="new badge <%= product.amount==0?'red':'blue' %>" data-badge-caption="Raktáron">
-                                        <%= product.amount %></span>
+                                <span class="new badge <%= data.amount==0?'red':'blue' %>" data-badge-caption="Raktáron">
+                                        <%= data.amount %></span>
                                     </div>
     
                             </div>
@@ -81,9 +81,9 @@
                                                     <i class="large material-icons">mode_edit</i>
                                                   </a>
                                                   <ul>
-                                        <li><a href="/products/<%= editpage %>/edit" class="btn-floating waves-effect"><i class="material-icons">edit</i></a>
+                                        <li><a href="/products/<%= data._id %>/edit" class="btn-floating waves-effect"><i class="material-icons">edit</i></a>
                                         </li>
-                                        <li><a href="/products/<%= editpage %>/delete" class="btn-floating waves-effect"><i class="material-icons">delete</i></a>
+                                        <li><a href="/products/<%= data._id %>/delete" class="btn-floating waves-effect"><i class="material-icons">delete</i></a>
                                         </li>
                                     </ul>
                                     </div>

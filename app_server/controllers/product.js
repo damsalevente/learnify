@@ -40,59 +40,50 @@ var apiOptions = {
     server: 'http://localhost:3000'
 };
 
+module.exports.renderpage = function(viewname){
+    return function(req,res){
+        console.log(res.tpl);
+        res.render(viewname,res.tpl);
+    }
+}
 
-/* GET home page */
-module.exports.homelist = function (req, res) {
-    var requestOptions, fpath;
-    fpath = '/api/products';
-    requestOptions = {
-        url: apiOptions.server + fpath, // you know why it's required
-        method: 'GET', // default is get, 
-        json: {}, // good practice, and ensures that i get json back -> no, it gives back plain string, not json if i dont use it lmao
-
-    };
-    request(requestOptions, function (err, response, body) {
+module.exports.apicall = function(req,res, next){
+    
+    request(res.tpl.requestOptions, function (err, response, body) {
         if (err) {
             res.status(300);
             res.json(err);
-        } else if (response.statusCode == 200) {
-            res.render('pages/products', {
-                title: 'Product list',
-                productlist: body,
-            });
-        } else {
-            res.status(response.statusCode);
-            res.json(response.body);
+            return next();
+        }else{
+            console.log(body);
+            res.tpl.data = body;
+           
+            return next();
         }
     });
-
+}
+/* GET home page */
+module.exports.homelist = function (req, res, next) {
+    var fpath;
+    fpath = '/api/products';
+    res.tpl.requestOptions = {
+        url: apiOptions.server + fpath,
+        method: 'GET', // default is get, 
+        json: {}
+    };
+    return next();
 };
 
-module.exports.product_detail = function (req, res) {
-    var requestOptions, fpath;
+module.exports.product_detail = function (req, res, next) {
+    var fpath;
     if (req.params.productid) {
         fpath = '/api/products/' + req.params.productid;
-        requestOptions = {
+        res.tpl.requestOptions = {
             url: apiOptions.server + fpath,
             method: "GET",
             json: {}
         };
-        request(requestOptions, function (err, response, body) {
-            if (err) {
-                // needs to refoactor using utillib snejsonresponse !!
-                res.status(300);
-                res.json(err);
-            } else if (response.statusCode == 200) {
-
-                res.render('pages/product', {
-                    'title': 'Product detail',
-                    product: body,
-                    editpage: req.params.productid
-                });
-            } else if(response.statusCode === 404){
-                res.render("error", {message: body.message, error:404});
-            }
-        });
+        return next();
     } else {
         res.render('error', {
             "message": "xd"
@@ -127,12 +118,12 @@ module.exports.do_add_product = function (req, res) {
                 json: postData
             };
             request(requestOptions, function (err, response, body) {
-                if (response.statusCode === 201) {
+                if (response.statusCode === 200) {
                     res.redirect('/products/');
                 } else {
                     res.render('error');
                 }
-            })
+            });
 
 
         }

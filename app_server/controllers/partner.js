@@ -143,7 +143,7 @@ module.exports.do_add_product = function (req, res) {
                 json: postData
             };
             request(requestOptions, function (err, response, body) {
-                if (response.statusCode === 201) {
+                if (response.statusCode === 200) {
                     res.redirect('/partners/');
                 } else {
                     res.render('error');

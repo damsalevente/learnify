@@ -46,7 +46,7 @@
       <h2 class="header">Product list</h2>
 
       <ul class="collection">
-      <% productlist.forEach((product,index) =>{ %>
+      <% data.forEach((product,index) =>{ %>
         <a class="collection-item avatar" href="/products/<%= product._id %>">
         <img src="/images/<%= product.imagefilenames %>" alt="" class="circle">
         <div class="title">

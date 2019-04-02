@@ -4,129 +4,101 @@ var mongoose = require("mongoose");
 
 var Product = mongoose.model("Product");
 
-module.exports.prod_list = function (req, res) {
+
+module.exports.send_json = function (req, res, ) {
+  res.status(res.tpl.status);
+  res.json(res.tpl.content);
+}
+
+
+module.exports.prod_list = function (req, res, next) {
   Product
     .find()
     .exec(function (err, products) {
       if (err) {
-        utillib.sendJsonResponse(res, 400, err);
-      } else {
-        utillib.sendJsonResponse(res, 200, products);
+        res.tpl.status = 404;
+        res.tpl.content = err;
+        return next();
       }
+        res.tpl.status = 200;
+        res.tpl.content = products;
+        res.tpl.products = products;
+        return next();
     });
 };
 
-module.exports.product_detail = function (req, res) {
+
+module.exports.product_detail = function (req, res, next) {
   if (req.params && req.params.productid) {
     Product.findById(req.params.productid).exec(function (err, product) {
       if (!product) {
-        utillib.sendJsonResponse(res, 404, {
+        res.tpl.status = 404;
+        res.tpl.content = {
           message: "Product not found"
-        });
+        };
+        return next();
       } else if (err) {
-        utillib.sendJsonResponse(res, 404, err);
-        return;
+        res.tpl.status = 404;
+        res.tpl.content = err;
+        return next();
       }
-      utillib.sendJsonResponse(res, 200, product);
+      res.tpl.status = 200;
+      res.tpl.content = product;
+      res.tpl.product = product;
+      return next()
     });
   } else {
-    utillib.sendJsonResponse(res, 404, {
+    res.tpl.status = 404;
+    res.tpl.content = {
       message: "No product id in request"
-    });
+    };
+    return next();
   }
 };
 
-module.exports.product_create_get = function (req, res) {
-  Product.create({
-    name: req.body.name,
-    product_id: req.body.product_id,
-    price: req.body.price,
-    imagefilenames: req.body.imagefilenames,
-    amount: req.body.amount,
-    description: req.body.description,
-  }, function (err, product) {
-    if (err) {
-      utillib.sendJsonResponse(res, 400, err);
-    } else {
-      utillib.sendJsonResponse(res, 201, product);
-    }
-  });
-};
 
-module.exports.product_create_post = function (req, res) {
-  utillib.sendJsonResponse(res, 200, {
-    message: "get prod list"
-  });
-};
-
-module.exports.product_delete_get = function (req, res) {
-  var productid = req.params.productid;
-  console.log(productid);
-  if (productid) {
-    Product.findByIdAndRemove(productid).exec(function (err, product) {
+module.exports.product_delete_get = function (req, res, next) {
+  if (req.params.productid) {
+    Product.findByIdAndRemove(req.params.productid).exec(function (err) {
       if (err) {
-        utillib.sendJsonResponse(res, 404, err);
-        return;
-
-      } else {
-        utillib.sendJsonResponse(res, 204, {});
+        res.tpl.status = 404;
+        res.tpl.content = err;
+        return next();
       }
+      res.tpl.status = 204;
+      res.tpl.content = {};
+      return next();
+
     });
   } else {
-    utillib.sendJsonResponse(res, 404, {
-      "message": "Tried to delete a nonexistent product"
-    });
-
+    return next();
   }
 };
 
-module.exports.product_delete_post = function (req, res) {
-  utillib.sendJsonResponse(res, 200, {
-    message: "get prod list"
-  });
-};
 
-module.exports.product_update_get = function (req, res) {
-  var productid = req.params.productid;
-  if (productid) {
-    // get the product
-    Product
-      .findByIdAndUpdate(productid)
-      .exec(function (err, product) {
-        if (!product) {
-          utillib.sendJsonResponse(res, 404, {
-            "message": "Product not found "
-          });
-          return;
-        } else if (err) {
-          utillib.sendJsonResponse(res, 300, err);
-        } else {
-          product.name = req.body.name;
-          product.product_id = req.body.product_id;
-          product.price = req.body.price;
-          product.imagefilenames = req.body.imagefilenames;
-          product.amount = req.body.amount;
-          product.description = req.body.description;
-
-          product.save(function (err, product) {
-            if (err) {
-              utillib.sendJsonResponse(res, 404, err);
-            } else {
-              utillib.sendJsonResponse(res, 200, product);
-            }
-          })
-        }
-      });
+module.exports.product_update_get = function (req, res, next) {
+  var product = undefined;
+  if (res.tpl.product) {
+    product = res.tpl.product;
   } else {
-    // not found item
-    utillib.sendJsonResponse(res, 404, {
-      "Message": "Product not found"
-    });
+    product = new Product();
   }
-};
+  product.name = req.body.name;
+  product.product_id = req.body.product_id;
+  product.price = req.body.price;
+  product.imagefilenames = req.body.imagefilenames;
+  product.amount = req.body.amount;
+  product.description = req.body.description;
 
-module.exports.product_update_post = function (req, res) {
-  utillib.sendJsonResponse(res, 200, {
-    message: "get prod list"
+  product.save(function (err, product) {
+    if (err) {
+      res.tpl.status = 300;
+      res.tpl.content = err;
+      return next();
+      // removed else 
+    }
+    res.tpl.status = 200;
+    res.tpl.content = product;
+    return next();
   });
 };
