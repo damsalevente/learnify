@@ -70,27 +70,19 @@ module.exports.partner_create_get = function (req, res) {
     });
 };
 
-module.exports.partner_delete_get = function (req, res) {
-    if (req.params.partnerid) {
-        Partner
-            .findByIdAndRemove(req.params.partnerid)
-            .exec(function (err, partner) {
+module.exports.partner_delete_get = function (req, res, next) {
+            res.tpl.partner.remove(function (err, partner) {
                 if (err) {
                     res.tpl.status = 404;
                     res.tpl.content = err;
-                    utillib.sendJsonResponse(res, 404, err);
+                    return next();
                 } else {
                     res.tpl.status = 404;
-                    res.tpl.content = err;
-                    utillib.sendJsonResponse(res, 204, partner);
+                    res.tpl.content = partner;
+                    return next();
                 }
             });
 
-    } else {
-        utillib.sendJsonResponse(res, 404, {
-            "message": "Product not found, you wanted to delete it anyways...."
-        });
-    }
 };
 
 

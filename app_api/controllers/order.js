@@ -183,55 +183,47 @@ exports.order_pull_item = function (req, res, next) {
         return next();
     }
 }
+//
+//exports.order_update_amount = function (req, res, next) {
+//    // res.tpl set by order_detail mw 
+//    var order = res.tpl.order;
+//                    var product_index = order.product_list.findIndex(x => req.body.productid == x.product._id);
+//                    if (product_index === -1) {
+//                        utillib.sendJsonResponse(res, 404, {
+//                            'message': 'product not found in list'
+//                        });
+//                    } else {
+//                        order.product_list[product_index]['amount'] = req.body.amount;
+//
+//                        order.save(function (err, dep) {
+//                            if (err) {
+//                                utillib.sendJsonResponse(res, 404, err);
+//                            } else {
+//                                utillib.sendJsonResponse(res, 200, dep);
+//                            }
+//                        });
+//                    }
+//                }
+//            });
+//    } else {
+//        utillib.sendJsonResponse(res, 404, {
+//            "message": "Partner not found"
+//        });
+//    }
+//};
 
-exports.order_update_amount = function (req, res) {
-    if (req.params.orderid) {
-        Order
-            .findById(req.params.orderid)
-            .exec(function (err, order) {
-                if (err) {
-                    utillib.sendJsonResponse(res, 404, err);
-                } else {
-                    var product_index = order.product_list.findIndex(x => req.body.productid == x.product._id);
-                    if (product_index === -1) {
-                        utillib.sendJsonResponse(res, 404, {
-                            'message': 'product not found in list'
-                        });
-                    } else {
-                        order.product_list[product_index]['amount'] = req.body.amount;
+exports.order_delete_get = function (req, res, next) {
+// order on res.tpl.order this should be a query object which has remove() fucntion 
+    var order = res.tpl.order; 
+    order.remove(function(err) {
+        if (err) 
+        {
+            return next(err); 
+        } else {
+             res.tpl.status = 204;
+             res.tpl.content = {};
+             return next();
+        }
+   });
 
-                        order.save(function (err, dep) {
-                            if (err) {
-                                utillib.sendJsonResponse(res, 404, err);
-                            } else {
-                                utillib.sendJsonResponse(res, 200, dep);
-                            }
-                        });
-                    }
-                }
-            });
-    } else {
-        utillib.sendJsonResponse(res, 404, {
-            "message": "Partner not found"
-        });
-    }
-};
-
-exports.order_delete_get = function (req, res) {
-    if (req.params.orderid) {
-        Order
-            .findByIdAndRemove(req.params.orderid)
-            .exec(function (err, order) {
-                if (err) {
-                    utillib.sendJsonResponse(res, 404, err);
-                } else {
-                    utillib.sendJsonResponse(res, 204, order);
-                }
-            });
-
-    } else {
-        utillib.sendJsonResponse(res, 404, {
-            "message": "order not found"
-        });
-    }
 };

@@ -96,7 +96,6 @@ module.exports.depot_detail = function (req, res) {
                     depot: body,
                 });
             } else {
-                console.log(response);
                 res.status(response.statusCode);
                 res.json(response.body);
             }
