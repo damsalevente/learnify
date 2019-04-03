@@ -19,13 +19,14 @@ router.get('/user', controlUser.userDetail);
 
 // Product pages 
 router.get('/products', control_product.homelist, control_product.apicall, control_product.renderpage('pages/products'));
+router.get('/products/load', control_product.load_from_file);
+
 router.get('/products/:productid',control_product.product_detail, control_product.apicall, control_product.renderpage('pages/product'));
 router.get('/product/new',control_product.add_product);
 router.post('/product/new',control_product.do_add_product);
 router.get('/products/:productid/edit', control_product.edit_product);
 router.post('/products/:productid/edit',control_product.do_edit_product);
 router.get('/products/:productid/delete',control_depot.filter_deleted, control_product.delete_product);
-
 /* Partner pages */
 
 router.get('/partners',control_partner.homelist);

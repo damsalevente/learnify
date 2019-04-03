@@ -89,7 +89,6 @@ module.exports.product_update_get = function (req, res, next) {
   product.imagefilenames = req.body.imagefilenames;
   product.amount = req.body.amount;
   product.description = req.body.description;
-
   product.save(function (err, product) {
     if (err) {
       res.tpl.status = 300;

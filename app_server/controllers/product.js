@@ -1,6 +1,9 @@
 var request = require('request');
 var multer = require('multer');
 var path = require('path');
+var csv = require('csv');
+var fs = require('fs');
+
 // file storage
 var storage = multer.diskStorage({
     destination: './public/images/',
@@ -40,28 +43,28 @@ var apiOptions = {
     server: 'http://localhost:3000'
 };
 
-module.exports.renderpage = function(viewname){
-    return function(req,res){
-        console.log(res.tpl);
-        res.render(viewname,res.tpl);
+module.exports.renderpage = function (viewname) {
+    return function (req, res) {
+        res.render(viewname, res.tpl);
     }
-}
+};
 
-module.exports.apicall = function(req,res, next){
-    
+module.exports.apicall = function (req, res, next) {
+
     request(res.tpl.requestOptions, function (err, response, body) {
         if (err) {
             res.status(300);
             res.json(err);
             return next();
-        }else{
+        } else {
             console.log(body);
             res.tpl.data = body;
-           
+
             return next();
         }
     });
-}
+};
+
 /* GET home page */
 module.exports.homelist = function (req, res, next) {
     var fpath;
@@ -86,7 +89,7 @@ module.exports.product_detail = function (req, res, next) {
         return next();
     } else {
         res.render('error', {
-            "message": "xd"
+            "message": "Product id not sent."
         });
     }
 };
@@ -111,7 +114,6 @@ module.exports.do_add_product = function (req, res) {
                 description: req.body.description,
                 imagefilenames: req.body.imagefilenames,
             };
-            console.log(typeof postData);
             requestOptions = {
                 url: apiOptions.server + fpath,
                 method: "POST",
@@ -201,7 +203,7 @@ module.exports.do_edit_product = function (req, res) {
                 };
                 request(requestOptions, function (err, response, body) {
                     if (response.statusCode === 200) {
-                        res.redirect('/products/'+req.params.productid);
+                        res.redirect('/products/' + req.params.productid);
                     } else {
                         res.render('error');
                     }
@@ -211,8 +213,10 @@ module.exports.do_edit_product = function (req, res) {
             }
         });
     } else {
-        res.redirect('error', {title:'Item not found to update',
-    "message": 'lmao'})
+        res.redirect('error', {
+            title: 'Item not found to update',
+            "message": 'lmao'
+        })
     }
 
 };
@@ -247,3 +251,33 @@ module.exports.delete_product = function (req, res) {
     }
 
 };
+
+
+module.exports.load_from_file = function (req, res) {
+    var fpath = './Cikklista.csv';
+    var requestOptions, appath, postData;
+    appath = '/api/products/'
+    var data = fs.readFileSync(fpath);
+    var parsed = csv.parse(data, {
+        delimeter: ','
+    }, function (err, records) {
+        records.forEach(element => {
+            var price_string = element[7].replace('\xA0', '').replace(',00','');
+            postData = {
+                name: element[0],
+                product_id: element[2],
+                price: price_string,
+                description: element[6],
+            };
+
+            requestOptions = {
+                url: apiOptions.server + appath,
+                method: "POST",
+                json: postData
+            };
+            request(requestOptions, function(err, response,body){
+            });
+        });
+    })
+    res.redirect('/products');
+}
