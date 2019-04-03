@@ -8,6 +8,7 @@ var controlCourseItem = require('../controllers/courseItem');
 var control_product = require('../controllers/product');
 var control_depot = require('../controllers/depot');
 var control_order = require('../controllers/order');
+var util = require('../controllers/util');
 /* Course pages */
 
 /* Course item */
@@ -18,10 +19,10 @@ router.get('/users',controlUser.userList);
 router.get('/user', controlUser.userDetail);
 
 // Product pages 
-router.get('/products', control_product.homelist, control_product.apicall, control_product.renderpage('pages/products'));
+router.get('/products', control_product.homelist, control_product.apicall,control_product.statistics, control_product.renderpage('pages/products'));
 router.get('/products/load', control_product.load_from_file);
 
-router.get('/products/:productid',control_product.product_detail, control_product.apicall, control_product.renderpage('pages/product'));
+router.get('/products/:productid',control_product.product_detail, util.apicall, util.renderpage('pages/product'));
 router.get('/product/new',control_product.add_product);
 router.post('/product/new',control_product.do_add_product);
 router.get('/products/:productid/edit', control_product.edit_product);

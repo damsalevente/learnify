@@ -26,14 +26,14 @@
 
 
 
-            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="/products/load"><i class="material-icons left">filter_drama</i>
+            <a class="collection-item waves-effect waves-teal btn-flat" href="/products/load"><i class="material-icons left">filter_drama</i>
               Load data
 
             </a>
-            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
+            <a class="collection-item  waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
               View my courses
             </a>
-            <a class="collection-item  -text text-lighten-1 waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
+            <a class="collection-item  waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
               Buddy write more than that
             </a>
 
@@ -42,8 +42,7 @@
 
     </div>
     <div class="col s12 m6">
-
-      <h2 class="header">Product list</h2>
+      <h1 class="header center blue-text"> Product list</h1>
 
       <ul class="collection">
       <% data.forEach((product,index) =>{ %>
@@ -51,7 +50,7 @@
         <img src="/images/<%= product.imagefilenames %>" alt="" class="circle">
         <div class="title">
           <%= product.name %>
-          <span class="new badge <%= product.amount==0?'red':'blue' %>" data-badge-caption="Raktáron">
+          <span class="new badge <%= product.amount==0?'deep-orange':'teal' %>" data-badge-caption="Raktáron">
               <%= product.amount %></span>
         </div>
         
@@ -70,7 +69,10 @@
     <h5 class=flow-text> Chatbox
     </h5>
     <img class="responsive-img materialboxed" src="/images/1538884585245.jpg">
-
+<div class="card">
+<h5> Product count </h5>
+<%= data.count %>
+</div>
 
   </div>
 

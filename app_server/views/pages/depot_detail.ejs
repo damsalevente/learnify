@@ -21,13 +21,15 @@
         </ul>
         </div>
     <div class="container">
+            <h1 class="header center blue-text"> Depot </h1>
+
     <div class="row" style="font-family: 'IBM Plex Sans', sans-serif">
 
         
 
 
 
-                <div class="col m12 l8">
+                <div class="col m8 l8">
                     <div class="card z-depth-2">
 
                         <div class="card-content">
@@ -51,8 +53,32 @@
 
                                 
                         </div>
+                        <table class="highlight">
+                                <tr>
+                                <th>Név</th>
+                                <th>Cikkszám</th>
+                                <th>Mennyiség</th>
+                                <th><a href="/depots/<%= depot._id %>/product/new"><i class="material-icons">add</i></a></th>
+                            </tr>
+                            <% depot.product_list.forEach((element) => { %>
+                                <tr>
+                                <td><%= element.product.name%>
+            
+                                </td>
+                                <td><%= element.product.product_id%></td>
+                                <td>
+                                    <%= element.amount %>
+                                </td>
+                                    <td><a href="/depots/<%= depot._id %>/products/<%= element.product._id %>/edit"><i class="material-icons blue-text text-lighten-3">edit</i></a>
+                                        <a href="/depots/<%= depot._id %>/products/<%= element.product._id %>/delete"><i class="material-icons orange-text">delete</i></a>
+                                </td>
+                            </tr>
+                                <% }) %>
+                            </table>
                     </div>
-                    <div class="col m12 l4">
+                 
+                </div>
+                    <div class="col m4 l4">
                        
                         <div class="card ">
                             <div class="card-title ">Eladott termékek száma a hónapban?</div>
@@ -68,28 +94,7 @@
 
                     </div>
             </div>
-            <table class="highlight">
-                    <tr>
-                    <th>Név</th>
-                    <th>Cikkszám</th>
-                    <th>Mennyiség</th>
-                    <th><a href="/depots/<%= depot._id %>/product/new"><i class="material-icons">add</i></a></th>
-                </tr>
-                <% depot.product_list.forEach((element) => { %>
-                    <tr>
-                    <td><%= element.product.name%>
-
-                    </td>
-                    <td><%= element.product.product_id%></td>
-                    <td>
-                        <%= element.amount %>
-                    </td>
-                        <td><a href="/depots/<%= depot._id %>/products/<%= element.product._id %>/edit"><i class="material-icons blue-text text-lighten-3">edit</i></a>
-                            <a href="/depots/<%= depot._id %>/products/<%= element.product._id %>/delete"><i class="material-icons orange-text">delete</i></a>
-                    </td>
-                </tr>
-                    <% }) %>
-                </table>
+         
 
 
 

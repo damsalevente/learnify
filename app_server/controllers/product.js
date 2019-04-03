@@ -59,7 +59,6 @@ module.exports.apicall = function (req, res, next) {
         } else {
             console.log(body);
             res.tpl.data = body;
-
             return next();
         }
     });
@@ -114,7 +113,7 @@ module.exports.do_add_product = function (req, res) {
                 description: req.body.description,
                 imagefilenames: req.body.imagefilenames,
             };
-            requestOptions = {
+            res.tpl.requestOptions = {
                 url: apiOptions.server + fpath,
                 method: "POST",
                 json: postData
@@ -280,4 +279,11 @@ module.exports.load_from_file = function (req, res) {
         });
     })
     res.redirect('/products');
+};
+module.exports.statistics = function(req,res, next)
+{
+    var products = res.tpl.data;
+    console.log(products.length);
+    res.tpl.data.count = products.length;
+    return next();
 }
