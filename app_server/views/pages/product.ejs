@@ -12,109 +12,108 @@
     <div class="row" style="font-family: 'IBM Plex Sans', sans-serif">
         <h1 class="header center blue-text"> <%= data.name %></h1>
 
-        
+        <div class="row">
+            <div class="col s12 m8">
+                <div class="card horizontal z-depth-2">
+                    <div class="card-image">
+                        <img class="responsive-img materialboxed" src="/images/<%= data.imagefilenames %>">
 
 
 
-            <div class="row">
-                <div class="col s12 m8">
-                    <div class="card horizontal z-depth-2">
-                        <div class="card-image">
-                            <img class="responsive-img materialboxed" src="/images/<%= data.imagefilenames %>">
-                       
-                                  
-                        
-                        </div>
+                    </div>
 
-                        <div class="card-content">
-                                <span class="card-title">
-                                        <h4><%= data.name %></h4></span>
-                            <div class="divider"></div>
-                            <div class="section">
-                                    <div class="row">
-                                    <div class="col s12 m6">
-                                <p>Product name</hp>
-                                <h5>
-                                    <%= data.name %>
-                                </h5>
-                            </div>
+                    <div class="card-content">
+                        <span class="card-title">
+                            <h4><%= data.name %></h4>
+                        </span>
+                        <div class="divider"></div>
+                        <div class="section">
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <p>Product name</hp>
+                                        <h5>
+                                            <%= data.name %>
+                                        </h5>
+                                </div>
 
                                 <div class="col s12 m6">
-                                        <p>Product id</p>
-                                            <h5>
-                                                    <%= data.product_id %>
-                                            </h5>
+                                    <p>Product id</p>
+                                    <h5>
+                                        <%= data.product_id %>
+                                    </h5>
 
-                                    </div>
+                                </div>
                             </div>
-                            </div>
-                            <% if (data.price){ %>
-                            <div class="divider"></div>
-                            <div class="section">
+                        </div>
+                        <% if (data.price){ %>
+                        <div class="divider"></div>
+                        <div class="section">
 
-                                    <p><i class="material-icons">attach_money</i>Price</p>
-                               <h5> <%= data.price %> Ft</h5>
-                            </div>
-                            <% } %>
-                            <div class="divider"></div>
-                            <div class="section">
-                              
-                                <p>Description</p>
-                                <h5>
-                                    <%= data.description %>
-                                </h5>
-                                <span class="new badge <%= data.amount==0?'red':'blue' %>" data-badge-caption="Raktáron">
-                                        <%= data.amount %></span>
-                                    </div>
-    
-                            </div>
-                            
-                                
+                            <p><i class="material-icons">attach_money</i>Price</p>
+                            <h5> <%= data.price %> Ft</h5>
+                        </div>
+                        <% } %>
+                        <div class="divider"></div>
+                        <div class="section">
 
-                                
-                        </div>
-                    </div>
-                    <div class="col s12 m4">
-                        <div class="card">
-                            <div class="card-title">
-                                    <div class="fixed-action-btn">
-                                            <a class="btn-floating btn-large red">
-                                                    <i class="large material-icons">mode_edit</i>
-                                                  </a>
-                                                  <ul>
-                                        <li><a href="/products/<%= data._id %>/edit" class="btn-floating waves-effect"><i class="material-icons">edit</i></a>
-                                        </li>
-                                        <li><a href="/products/<%= data._id %>/delete" class="btn-floating waves-effect"><i class="material-icons">delete</i></a>
-                                        </li>
-                                    </ul>
-                                    </div>
-                            </div>
-
-                        </div>
-                        <div class="card ">
-                            <div class="card-title ">Eladott termékek száma a hónapban?</div>
-                        </div>
-                        <div class="card ">
-                            <div class="card-title">Top partnerek</div>
-                        </div>
-                        <div class="card ">
-                            <div class="card-title">
-                                <h5>grafikonok</h5>
-                            </div>
+                            <p>Description</p>
+                            <h5>
+                                <%= data.description %>
+                            </h5>
+                            <span class="new badge <%= data.amount==0?'red':'blue' %>" data-badge-caption="Raktáron">
+                                <%= data.amount %></span>
                         </div>
 
                     </div>
+
+
+
+
                 </div>
             </div>
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-title">
+                        <div class="fixed-action-btn">
+                            <a class="btn-floating btn-large red">
+                                <i class="large material-icons">mode_edit</i>
+                            </a>
+                            <ul>
+                                <li><a href="/products/<%= data._id %>/edit" class="btn-floating waves-effect"><i
+                                            class="material-icons">edit</i></a>
+                                </li>
+                                <li><a href="/products/<%= data._id %>/delete" class="btn-floating waves-effect"><i
+                                            class="material-icons">delete</i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
+                </div>
+                <div class="card ">
+                    <div class="card-title ">Eladott termékek száma a hónapban?</div>
+                </div>
+                <div class="card ">
+                    <div class="card-title">Top partnerek</div>
+                </div>
+                <div class="card ">
+                    <div class="card-title">
+                        <h5>grafikonok</h5>
+                    </div>
+                </div>
 
-
-
-
-
-
-
+            </div>
         </div>
+    </div>
+
+
+
+
+
+
+
+
+    </div>
     <% include ../partials/foot %>
     <script>
         $(document).ready(function () {
@@ -124,12 +123,12 @@
         $(document).ready(function () {
             $('.materialboxed').materialbox();
         });
-        document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.fixed-action-btn');
-    var instances = M.FloatingActionButton.init(elems, {
-      direction: 'up'
-    });
-  });
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.fixed-action-btn');
+            var instances = M.FloatingActionButton.init(elems, {
+                direction: 'up'
+            });
+        });
     </script>
 
 </body>

@@ -1,4 +1,6 @@
 var request = require('request');
+
+
 module.exports.renderpage = function (viewname) {
     return function (req, res) {
         res.render(viewname, res.tpl);
@@ -21,3 +23,8 @@ module.exports.apicall = function (req, res, next) {
     });
 };
 
+module.exports.redirectTo = function(pagename){
+  return function(req,res){
+    res.redirect(pagename)
+  };
+};

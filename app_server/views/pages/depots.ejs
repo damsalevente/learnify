@@ -33,16 +33,16 @@
           <% } %>
           <div class="col m12 l6">
             <div class="card hoverable">
-             
+
               <div class="card-content">
-                  <span class="card-title center">
-                      <h4 class="header">
-                        <%= depot.name %>
-                      </h4>
-                    </span>
-                    <p>Depot address:</p>
+                <span class="card-title center">
+                  <h4 class="header">
+                    <%= depot.name %>
+                  </h4>
+                </span>
+                <p>Depot address:</p>
                 <h5><%= depot.place %></h5>
-                    <p>Last checked</p>
+                <p>Last checked</p>
                 <h5>
                   <%= depot.last_check_date %>
                 </h5>
@@ -61,7 +61,8 @@
               </div>
               <div class="card-action  light-blue accent-4">
                 <a class="waves-effect waves-teal btn deep-orange accent-4" href="/depots/<%= depot._id %>">Details</a>
-                <a class="modal-trigger right  waves-effect waves-teal btn deep-orange accent-4" href="#modal1">Modal</a>
+                <a class="modal-trigger right  waves-effect waves-teal btn deep-orange accent-4"
+                  href="#modal1">Modal</a>
 
                 <!-- Modal Structure -->
                 <div id="modal1" class="modal">
@@ -69,24 +70,24 @@
                     <h4>Depot items</h4>
                     <table>
                       <tr>
-                      <th>Név</th>
-                      <th>Cikkszám
+                        <th>Név</th>
+                        <th>Cikkszám
 
-                      </th>
-                      <th> Mennyiség</th>
-                  </tr>
-                  <% depot.product_list.forEach((element) => { %>
+                        </th>
+                        <th> Mennyiség</th>
+                      </tr>
+                      <% depot.product_list.forEach((element) => { %>
                       <tr>
-                      <td><%= element.product.name%>
+                        <td><%= element.product.name%>
 
-                      </td>
-                      <td><%= element.product.product_id%></td>
-                      <td>
+                        </td>
+                        <td><%= element.product.product_id%></td>
+                        <td>
                           <%= element.amount %>
-                      </td>
-                  </tr>
+                        </td>
+                      </tr>
                       <% }) %>
-                  </table>
+                    </table>
                   </div>
                   <div class="modal-footer">
                     <a href="/depots/<%= depot._id %>" class="modal-close waves-effect waves-green btn-flat">Details</a>
@@ -125,11 +126,11 @@
 
   <% include ../partials/foot %>
   <script>
-   
-   document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems);
-  });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems);
+    });
 
 
     $(document).ready(function () {

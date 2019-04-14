@@ -15,36 +15,36 @@
 
 
   <div class="row">
-      <form class="col s6" action="", method="POST", role="form">
-          <div class="input-field col s12">
-              <select name="productid">
-                <option value="" disabled selected>Choose your option</option>
-                <% products.forEach((element) => { %>
-                  <option value="<%= element._id %>"><%= element.name %></option>
-                <% }); %>
-               
-              </select>
-              <label>Materialize Select</label>
-            </div>
-            <div class="input-field col s6">
-                <input placeholder="Placeholder" id="amount" type="number" name="amount" class="validate">
-                <label for="amount">amount</label>
-              </div>
-            
-          <div class="input-field col s12 m6">
-          <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-              <i class="material-icons right">send</i>
-            </button>
-          </div>
-      </form>
+    <form class="col s6" action="" , method="POST" , role="form">
+      <div class="input-field col s12">
+        <select name="productid">
+          <option value="" disabled selected>Choose your option</option>
+          <% products.forEach((element) => { %>
+          <option value="<%= element._id %>"><%= element.name %></option>
+          <% }); %>
+
+        </select>
+        <label>Materialize Select</label>
       </div>
+      <div class="input-field col s6">
+        <input placeholder="Placeholder" id="amount" type="number" name="amount" class="validate">
+        <label for="amount">amount</label>
+      </div>
+
+      <div class="input-field col s12 m6">
+        <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </form>
+  </div>
   <% include ../partials/foot %>
   <script>
-   
-   document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems);
-  });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems);
+    });
 
 
     $(document).ready(function () {
@@ -55,13 +55,12 @@
       $('.materialboxed').materialbox();
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems);
-  });
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('select');
+      var instances = M.FormSelect.init(elems);
+    });
 
   </script>
 </body>
 
 </html>
-

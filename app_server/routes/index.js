@@ -1,7 +1,6 @@
 var express = require('express');
 var path = require('path');
 var router = express.Router();
-var controlmain = require('../controllers/main');
 var control_partner = require('../controllers/partner');
 var controlUser = require('../controllers/users');
 var controlCourseItem = require('../controllers/courseItem');
@@ -9,10 +8,7 @@ var control_product = require('../controllers/product');
 var control_depot = require('../controllers/depot');
 var control_order = require('../controllers/order');
 var util = require('../controllers/util');
-/* Course pages */
 
-/* Course item */
-router.get('/course/item', controlCourseItem.item);
 
 /* User pages */
 router.get('/users',controlUser.userList);
@@ -24,7 +20,7 @@ router.get('/products/load', control_product.load_from_file);
 
 router.get('/products/:productid',control_product.product_detail, util.apicall, util.renderpage('pages/product'));
 router.get('/product/new',control_product.add_product);
-router.post('/product/new',control_product.do_add_product);
+router.post('/product/new',control_product.do_add_product,util.apicall, util.redirectTo('/products/'));
 router.get('/products/:productid/edit', control_product.edit_product);
 router.post('/products/:productid/edit',control_product.do_edit_product);
 router.get('/products/:productid/delete',control_depot.filter_deleted, control_product.delete_product);

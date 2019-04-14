@@ -94,13 +94,13 @@ module.exports.product_detail = function (req, res, next) {
 };
 
 
-module.exports.do_add_product = function (req, res) {
+// redirect to products 
+module.exports.do_add_product = function (req, res, next) {
     var requestOptions, fpath, postData;
     fpath = '/api/products/';
-
+    // refactor upload 
     upload(req, res, (err) => {
         if (err) {
-            console.log("Problem");
             res.render('index', {
                 msg: err,
             });
@@ -118,13 +118,14 @@ module.exports.do_add_product = function (req, res) {
                 method: "POST",
                 json: postData
             };
-            request(requestOptions, function (err, response, body) {
-                if (response.statusCode === 200) {
-                    res.redirect('/products/');
-                } else {
-                    res.render('error');
-                }
-            });
+            return next();
+           // request(requestOptions, function (err, response, body) {
+           //     if (response.statusCode === 200) {
+           //         res.redirect('/products/');
+           //     } else {
+           //         res.render('error');
+           //     }
+           // });
 
 
         }
@@ -148,6 +149,8 @@ module.exports.edit_product = function (req, res) {
             method: 'GET',
             json: {}
         };
+
+        // api call 
         request(requestOptions, function (err, response, body) {
             console.log("Did we say somehing?");
             if (err) {

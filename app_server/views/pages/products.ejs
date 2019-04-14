@@ -2,20 +2,15 @@
 <html>
 
 <head>
-
   <% include ../partials/head %>
   <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
   <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-
 </head>
 <header>
   <% include ../partials/header %>
 </header>
 
 <body>
-
-
-
   <div class="row">
     <div class="col s12 m3">
       <h5 class=flow-text>Sidenavbar</h5>
@@ -26,14 +21,17 @@
 
 
 
-            <a class="collection-item waves-effect waves-teal btn-flat" href="/products/load"><i class="material-icons left">filter_drama</i>
+            <a class="collection-item waves-effect waves-teal btn-flat" href="/products/load"><i
+                class="material-icons left">filter_drama</i>
               Load data
 
             </a>
-            <a class="collection-item  waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
-              View my courses
+            <a class="collection-item  waves-effect waves-teal btn-flat" href="#"><i
+                class="large material-icons left">insert_chart</i>
+              Placeholder
             </a>
-            <a class="collection-item  waves-effect waves-teal btn-flat" href="#"><i class="large material-icons left">insert_chart</i>
+            <a class="collection-item  waves-effect waves-teal btn-flat" href="#"><i
+                class="large material-icons left">insert_chart</i>
               Buddy write more than that
             </a>
 
@@ -45,43 +43,43 @@
       <h1 class="header center blue-text"> Product list</h1>
 
       <ul class="collection">
-      <% data.forEach((product,index) =>{ %>
+        <% data.forEach((product,index) =>{ %>
         <a class="collection-item avatar" href="/products/<%= product._id %>">
-        <img src="/images/<%= product.imagefilenames %>" alt="" class="circle">
-        <div class="title">
-          <%= product.name %>
-          <span class="new badge <%= product.amount==0?'deep-orange':'teal' %>" data-badge-caption="Raktáron">
+          <img src="/images/<%= product.imagefilenames %>" alt="" class="circle">
+          <div class="title">
+            <%= product.name %>
+            <span class="new badge <%= product.amount==0?'deep-orange':'teal' %>" data-badge-caption="Raktáron">
               <%= product.amount %></span>
-        </div>
-        
-       
-       <p>Price: <%= product.price %> Ft <br>
-       ID: <%= product.product_id %></p>
-        
-       
+          </div>
+
+
+          <p>Price: <%= product.price %> Ft <br>
+            ID: <%= product.product_id %></p>
+
+
         </a>
-  <% }); %>
-</ul>
-<div class="ct-chart ct-perfect-fourth"></div>
+        <% }); %>
+      </ul>
+      <div class="ct-chart ct-perfect-fourth"></div>
 
     </div>
-  <div class="col s12 m3">
-    <h5 class=flow-text> Chatbox
-    </h5>
-    <img class="responsive-img materialboxed" src="/images/1538884585245.jpg">
-<div class="card">
-<h5> Product count </h5>
-<%= data.count %>
-</div>
+    <div class="col s12 m3">
+      <h5 class=flow-text> Chatbox
+      </h5>
+      <img class="responsive-img materialboxed" src="/images/1538884585245.jpg">
+      <div class="card">
+        <h5> Product count </h5>
+        <%= data.count %>
+      </div>
 
-  </div>
+    </div>
 
   </div>
   <div class="fixed-action-btn">
 
-      <a class="right btn-floating waves-effect waves-light red" href="/product/new"><i class="material-icons">add
-        </i></a>
-            </div>
+    <a class="right btn-floating waves-effect waves-light red" href="/product/new"><i class="material-icons">add
+      </i></a>
+  </div>
   <% include ../partials/foot %>
   <script>
     $(document).ready(function () {
@@ -93,19 +91,19 @@
     });
 
     new Chartist.Line('.ct-chart', {
-  series: [[
-    {x: 1, y: 100},
-    {x: 2, y: 50},
-    {x: 3, y: 25},
-    {x: 5, y: 38},
-    {x: 8, y: 6.25}
-  ]]
-}, {
-  axisX: {
-    type: Chartist.AutoScaleAxis,
-    onlyInteger: true
-  }
-});
+      series: [[
+        { x: 1, y: 100 },
+        { x: 2, y: 50 },
+        { x: 3, y: 25 },
+        { x: 5, y: 38 },
+        { x: 8, y: 6.25 }
+      ]]
+    }, {
+        axisX: {
+          type: Chartist.AutoScaleAxis,
+          onlyInteger: true
+        }
+      });
   </script>
 
 </body>

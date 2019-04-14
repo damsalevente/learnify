@@ -2,71 +2,71 @@
 <html>
 
 <head>
-    <% include ../partials/head %>
+  <% include ../partials/head %>
 </head>
 <header>
-    <% include ../partials/header %>
+  <% include ../partials/header %>
 </header>
 
 <body>
   <div class="container">
-      <div class="section">
-          <h1 class="header center blue-text"> Change stock</h1>
-         </div>
+    <div class="section">
+      <h1 class="header center blue-text"> Change stock</h1>
+    </div>
 
-        <form action="", method="POST">
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input disabled value="<%= toupdate.product._id %>" type="text" name="productid">
-                        <label for="name">Product name to update:</label>
-                      </div>
-                      <div class="input-field col s12">
-              
-                        <input value="<%= Number.parseInt(toupdate.amount) %>" type="number" name="amount">
-                        <label for="amount">amount</label>
-                      </div>
-                    </div>
-              
-              <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-                  <i class="material-icons right">send</i>
-                </button>
-              </div>
-          </form>
+    <form action="" , method="POST">
+      <div class="row">
+        <div class="input-field col s12">
+          <input disabled value="<%= toupdate.product._id %>" type="text" name="productid">
+          <label for="name">Product name to update:</label>
+        </div>
+        <div class="input-field col s12">
+
+          <input value="<%= Number.parseInt(toupdate.amount) %>" type="number" name="amount">
+          <label for="amount">amount</label>
+        </div>
+      </div>
+
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>
+  </div>
+  </form>
 
 
-    <% include ../partials/foot %>
-    <script>
-        $(document).ready(function () {
-            $('.collapsible').collapsible();
-        });
-
-        $(document).ready(function () {
-            $('.materialboxed').materialbox();
-        });
-        document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.fixed-action-btn');
-    var instances = M.FloatingActionButton.init(elems, {
-      direction: 'up',
-      hoverEnabled: false
+  <% include ../partials/foot %>
+  <script>
+    $(document).ready(function () {
+      $('.collapsible').collapsible();
     });
-  });
 
-  $(document).ready(function(){
-    $('.tabs').tabs();
-  });
+    $(document).ready(function () {
+      $('.materialboxed').materialbox();
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.fixed-action-btn');
+      var instances = M.FloatingActionButton.init(elems, {
+        direction: 'up',
+        hoverEnabled: false
+      });
+    });
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.modal');
-    var instances = M.Modal.init(elems);
-  });
+    $(document).ready(function () {
+      $('.tabs').tabs();
+    });
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems);
-  });
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems);
+    });
 
-    </script>
-</div>
+    document.addEventListener('DOMContentLoaded', function () {
+      var elems = document.querySelectorAll('select');
+      var instances = M.FormSelect.init(elems);
+    });
+
+  </script>
+  </div>
 </body>
 
 </html>
