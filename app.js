@@ -1,20 +1,29 @@
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
+var express_session = require('express-session');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 //step 2 Add the database model, no function export needed
 require('./app_api/models/db');
 
 var routes = require('./app_server/routes/index');
 var routesApi = require('./app_api/routes/index');
-var users = require('./app_server/routes/users');
-
 
 
 
 var app = express();
+
+
+//express-session
+app.use(express_session({
+resave: false,
+saveUninitialized: true,
+secret: 'geohot',
+}));
+
 
 // view engine setup
 app.set('views', path.join(__dirname,'app_server', 'views'));
@@ -34,7 +43,6 @@ app.use(function(req,res,next){
 })
 app.use('/', routes);
 app.use('/api',routesApi);
-app.use('/users', users);
 
 
 /// catch 404 and forwarding to error handler

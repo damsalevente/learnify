@@ -63,3 +63,4 @@ require('./depot');
 require('./order');
 require('./partner');
 require('./product');
+require('./users');
